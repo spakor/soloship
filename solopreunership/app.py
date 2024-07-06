@@ -1,0 +1,136 @@
+import requests
+import os
+import streamlit as st
+from openai import OpenAI
+
+# Constants
+BASE_URL = "https://api.upstage.ai/v1/"
+CHAT_URL = BASE_URL + "solar"
+OCR_URL = BASE_URL + "document-ai/ocr"
+SOLAR_MODEL = "solar-1-mini-chat"
+
+# Environment Variables
+UPSTAGE_API_TOKEN = os.getenv("UPSTAGE_API_TOKEN")
+
+# OpenAI Client Initialization
+client = OpenAI(api_key=UPSTAGE_API_TOKEN, base_url=CHAT_URL)
+
+
+# Function to create a chat stream
+def create_chat_stream(messages: list[dict], model: str = SOLAR_MODEL):
+    stream = client.chat.completions.create(model=model, messages=messages, stream=True)
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            yield chunk.choices[0].delta.content
+
+
+# Function to extract text from an uploaded document using OCR
+def extract_document_ocr(uploaded_file):
+    headers = {"Authorization": f"Bearer {UPSTAGE_API_TOKEN}"}
+    files = {"document": uploaded_file}
+    print("sending a request to the OCR ....")
+    response = requests.post(OCR_URL, headers=headers, files=files)
+    response_json = response.json()
+    return response_json.get("text")
+
+
+# Function to convert a response dictionary to a formatted string
+def convert_response_to_string(response):
+    return "\n".join(f"{k}: {v}" for k, v in response.items())
+
+
+# Function to display the questions one by one
+def display_questions():
+    questions = [
+        "What is your business idea?",
+        "Who is your target audience?",
+        "What resources do you currently have?",
+        "What are your goals for the next 6 months?",
+        "What are the biggest challenges you are facing?",
+    ]
+
+    # Initialize session state variables
+    if "step" not in st.session_state:
+        st.session_state.step = 0
+    if "responses" not in st.session_state:
+        st.session_state.responses = [""] * len(questions)
+    if "document_ocr" not in st.session_state:
+        st.session_state.document_ocr = None
+    if "document_ocr_processing" not in st.session_state:
+        st.session_state.document_ocr_processing = False
+
+    # Display progress bar
+    progress = (st.session_state.step + 1) / len(questions)
+    st.progress(progress)
+
+    # Display current question
+    st.text(questions[st.session_state.step])
+    st.session_state.responses[st.session_state.step] = st.text_input(
+        f"Answer {st.session_state.step + 1}",
+        value=st.session_state.responses[st.session_state.step],
+        key=f"answer_{st.session_state.step}",
+    )
+
+    col1, _, col3 = st.columns([1, 6, 1])
+
+    # File uploader for optional CV upload
+    uploaded_file = st.file_uploader(
+        "Upload your CV (optional)",
+        help="This can help the AI have more information on your experience.",
+    )
+    if (
+        uploaded_file is not None
+        and st.session_state.document_ocr is None
+        and not st.session_state.document_ocr_processing
+    ):
+        st.session_state.document_ocr_processing = True
+        with st.spinner("Uploaded your CV..."):
+            st.session_state.document_ocr = extract_document_ocr(uploaded_file)
+        st.session_state.document_ocr_processing = False
+
+    # "Previous" button
+    prev_disabled = st.session_state.step == 0
+    if col1.button("←", disabled=prev_disabled):
+        st.session_state.step -= 1
+        st.rerun()
+
+    # Next Button or Submit Button
+    if st.session_state.step < len(questions) - 1:
+        if col3.button("→"):
+            st.session_state.step += 1
+            st.rerun()
+    else:
+        col4, _, col6 = st.columns([1, 6, 1])
+        if col6.button("Submit") and any(st.session_state.responses):
+            with st.spinner("Loading..."):
+                responses_dict = {
+                    questions[i]: st.session_state.responses[i]
+                    for i in range(len(questions))
+                }
+                string_result = convert_response_to_string(responses_dict)
+                system_prompt = {
+                    "role": "system",
+                    "content": "You will build a resume based on the user's input. Do not assume or add anything that wasn't mentioned.",
+                }
+                user_prompt = {
+                    "role": "user",
+                    "content": f"Here is an overview of my professional experience {string_result}",
+                }
+
+                messages = [system_prompt, user_prompt]
+
+                if st.session_state.document_ocr:
+                    messages.append(
+                        {
+                            "role": "user",
+                            "content": f"Here is a document I uploaded, going over my professional experience: {st.session_state.document_ocr}.",
+                        }
+                    )
+
+                for message in create_chat_stream(messages=messages):
+                    st.write(message)
+
+
+# Streamlit app
+st.title("Solopreneur-Accelerator")
+display_questions()
