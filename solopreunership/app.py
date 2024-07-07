@@ -3,6 +3,8 @@ import os
 import streamlit as st
 from openai import OpenAI
 
+from solopreunership.context import LIST_OF_QUESTIONS, SYSTEM_CONTEXT
+
 # Constants
 BASE_URL = "https://api.upstage.ai/v1/"
 CHAT_URL = BASE_URL + "solar"
@@ -41,13 +43,7 @@ def convert_response_to_string(response):
 
 # Function to display the questions one by one
 def display_questions():
-    questions = [
-        "What is your business idea?",
-        "Who is your target audience?",
-        "What resources do you currently have?",
-        "What are your goals for the next 6 months?",
-        "What are the biggest challenges you are facing?",
-    ]
+    questions = LIST_OF_QUESTIONS
 
     # Initialize session state variables
     if "step" not in st.session_state:
@@ -110,7 +106,7 @@ def display_questions():
                 string_result = convert_response_to_string(responses_dict)
                 system_prompt = {
                     "role": "system",
-                    "content": "You will build a resume based on the user's input. Do not assume or add anything that wasn't mentioned.",
+                    "content": SYSTEM_CONTEXT,
                 }
                 user_prompt = {
                     "role": "user",
