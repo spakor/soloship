@@ -60,9 +60,13 @@ def display_questions():
     st.progress(progress)
 
     # Display current question
-    st.text(questions[st.session_state.step])
+    st.markdown(
+        f"<div style='word-wrap: break-word;'>{questions[st.session_state.step]}</div>",
+        unsafe_allow_html=True,
+    )
+    # st.text(questions[st.session_state.step])
     st.session_state.responses[st.session_state.step] = st.text_input(
-        f"Answer {st.session_state.step + 1}",
+        f"Question {st.session_state.step + 1} / {len(questions)}",
         value=st.session_state.responses[st.session_state.step],
         key=f"answer_{st.session_state.step}",
     )
@@ -123,8 +127,8 @@ def display_questions():
                         }
                     )
 
-                for message in create_chat_stream(messages=messages):
-                    st.write(message)
+            if messages:
+                st.write_stream(create_chat_stream(messages))
 
 
 # Streamlit app
