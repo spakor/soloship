@@ -3,6 +3,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
+
 from solopreunership.context import LIST_OF_QUESTIONS, SYSTEM_CONTEXT
 
 # Constants
@@ -54,6 +55,8 @@ def display_questions():
         st.session_state.document_ocr = None
     if "document_ocr_processing" not in st.session_state:
         st.session_state.document_ocr_processing = False
+    if "response_chunks" not in st.session_state:
+        st.session_state.response_chunks = []
 
     # Display progress bar
     progress = (st.session_state.step + 1) / len(questions)
@@ -84,7 +87,7 @@ def display_questions():
         and not st.session_state.document_ocr_processing
     ):
         st.session_state.document_ocr_processing = True
-        with st.spinner("Uploaded your CV..."):
+        with st.spinner("Uploading your CV..."):
             st.session_state.document_ocr = extract_document_ocr(uploaded_file)
         st.session_state.document_ocr_processing = False
 
@@ -128,9 +131,28 @@ def display_questions():
                     )
 
             if messages:
-                st.write_stream(create_chat_stream(messages))
+                response_chunks = []
+
+                # Function to yield and accumulate chunks
+                def stream_chunks():
+                    for chunk in create_chat_stream(messages):
+                        st.session_state.response_chunks.append(chunk)
+                        yield chunk
+
+                st.write_stream(stream_chunks)
+
+                response_text = "".join(st.session_state.response_chunks)
+                st.session_state.response_text = response_text
 
 
 # Streamlit app
 st.title("Solopreneur-Accelerator")
 display_questions()
+
+if "response_text" in st.session_state and st.session_state.response_text:
+    st.download_button(
+        label="Download Response",
+        data=st.session_state.response_text,
+        file_name="response.txt",
+        mime="text/plain",
+    )
