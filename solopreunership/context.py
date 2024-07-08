@@ -16,12 +16,16 @@ BUSINESS_RELATED = [
 
 LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]
 
-TIME_CONSIERATION = """Ensure to include the time estimation for building audience. State the assumptions if made."""
-COST_CONSIERATION = """Ensure to include the operation cost estimation(in USD) in the first year month by month."""
+TIME_CONSIERATION = """Ensure to include the time estimation for building audience. State the assumptions if made. Provide detailed reasoning for estimation"""
+COST_CONSIERATION = """Ensure to include the operation cost estimation(in USD) in the first year month by month. Provide detailed reasoning for estimation"""
 
 PROMPT_1 = """Provide a quick summary and breakdown of the user input in 200 words or less."""
-PROMPT_2 = """Provide top 5 niche recommendations related to the user's current skills and interests.""" + TIME_CONSIERATION
-PROMPT_3 = """Provide top 5 one-person business recommendations related to the user's current skills and interests.""" + TIME_CONSIERATION
+PROMPT_2 = """Provide top 5 niche recommendations related to the user's current skills and interests.
+DO THIS ONLY IF THE USER DID NOT INPUT ANY BUSINESS IDEA.
+""" + TIME_CONSIERATION
+PROMPT_3 = """Provide top 5 one-person business recommendations related to the user's current skills and interests.
+BUSINESS RECOMMENDATIONS SHOULD ENCAPTULATE THE NICHE(IF PROVIDED), BUT NOT IDENTICAL. 
+""" + TIME_CONSIERATION
 PROMPT_4 = """
 Provide a list of skills and knowledge for recommended businesses. 
 Include every aspect of business, such as marketing, accounting, legal, etc.

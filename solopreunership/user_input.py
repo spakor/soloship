@@ -5,7 +5,7 @@ There I was trained in effective communication(both written and spoken) and lead
 I joined World Vision, the largest global non-profit organization, because I wanted to use my skills to help the others.
 After spending nearly three years there, I decided to go back to coding because I wanted more hands on experience in software. 
 I enjoyed writing code and workgin with other software engineers, but I learned that I was good at bridging the gap between tech and non-tech people.
-I'm also passionate about helping people
+I'm also passionate about connecting people with the right business opportunities. 
 """
 PERSONAL_RELATED_3 = """
 Outside of my professional work, I enjoy creative work like making youtube videos and taking photos. 
