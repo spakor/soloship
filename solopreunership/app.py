@@ -131,7 +131,6 @@ def display_questions():
                     )
 
             if messages:
-                response_chunks = []
 
                 # Function to yield and accumulate chunks
                 def stream_chunks():
@@ -156,3 +155,5 @@ if "response_text" in st.session_state and st.session_state.response_text:
         file_name="response.txt",
         mime="text/plain",
     )
+    # ressting the response text after download
+    st.session_state.response_text = ""
