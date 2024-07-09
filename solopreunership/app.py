@@ -4,7 +4,7 @@ import streamlit as st
 from openai import OpenAI
 
 
-from solopreunership.context import LIST_OF_QUESTIONS, SYSTEM_CONTEXT
+from solopreunership.context import LIST_OF_QUESTIONS, MULTI_SYS_PROMPT, SYSTEM_CONTEXT
 
 # Constants
 BASE_URL = "https://api.upstage.ai/v1/"
@@ -114,23 +114,23 @@ def display_questions():
             st.rerun()
     else:
         col4, _, col6 = st.columns([1, 6, 1])
-        if col6.button("Submit") and any(st.session_state.responses):
+        if col6.button("Submit") and st.session_state.responses:
             with st.spinner("Loading..."):
                 responses_dict = {
                     questions[i]: st.session_state.responses[i]
                     for i in range(len(questions))
                 }
                 string_result = convert_response_to_string(responses_dict)
-                system_prompt = {
-                    "role": "system",
-                    "content": SYSTEM_CONTEXT,
-                }
+                # system_prompt = {
+                #     "role": "system",
+                #     "content": SYSTEM_CONTEXT,
+                # }
                 user_prompt = {
                     "role": "user",
                     "content": f"Here is an overview of my professional experience {string_result}",
                 }
 
-                messages = [system_prompt, user_prompt]
+                messages = [user_prompt]
 
                 if st.session_state.document_ocr:
                     messages.append(
@@ -139,19 +139,23 @@ def display_questions():
                             "content": f"Here is a document I uploaded, going over my professional experience: {st.session_state.document_ocr}.",
                         }
                     )
+                for i in MULTI_SYS_PROMPT:
+                    system_prompt = {
+                        "role": "system",
+                        "content": i,
+                    }
+                    updated_messages = [system_prompt, *messages]
 
-            if messages:
+                    # Function to yield and accumulate chunks
+                    def stream_chunks():
+                        for chunk in create_chat_stream(updated_messages):
+                            st.session_state.response_chunks.append(chunk)
+                            yield chunk
 
-                # Function to yield and accumulate chunks
-                def stream_chunks():
-                    for chunk in create_chat_stream(messages):
-                        st.session_state.response_chunks.append(chunk)
-                        yield chunk
+                    st.write_stream(stream_chunks)
 
-                st.write_stream(stream_chunks)
-
-                response_text = "".join(st.session_state.response_chunks)
-                st.session_state.response_text = response_text
+                    response_text = "".join(st.session_state.response_chunks)
+                    st.session_state.response_text = response_text
 
 
 # Streamlit app

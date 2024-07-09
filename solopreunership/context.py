@@ -2,7 +2,7 @@ PERSONAL_RELATED = [
     "Tell us your business idea if you have any, you can skip this if you're uncertain.",
     "Tell us about your professional experience. Even if you submitted your resume, giving us more information is always helpful for us to help you more efficiently.",
     "Tell us about yourself that are outside of your professional area such as a your hobby or interest. The more details you provide, the better we can help you.",
-    "Tell us about anything you want us to know."
+    "Tell us about anything you want us to know.",
 ]
 
 BUSINESS_RELATED = [
@@ -19,23 +19,47 @@ LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]
 TIME_CONSIERATION = """Ensure to include the time estimation for building audience. State the assumptions if made. Provide detailed reasoning for estimation"""
 COST_CONSIERATION = """Ensure to include the operation cost estimation(in USD) in the first year month by month. Provide detailed reasoning for estimation"""
 
-PROMPT_1 = """Provide a quick summary and breakdown of the user input in 200 words or less."""
-PROMPT_2 = """Provide top 5 niche recommendations related to the user's current skills and interests.
+PROMPT_1 = (
+    """Provide a quick summary and breakdown of the user input in 200 words or less."""
+)
+PROMPT_2 = (
+    """Provide top 5 niche recommendations related to the user's current skills and interests.
 DO THIS ONLY IF THE USER DID NOT INPUT ANY BUSINESS IDEA.
-""" + TIME_CONSIERATION
-PROMPT_3 = """Provide top 5 one-person business recommendations related to the user's current skills and interests.
+"""
+    + TIME_CONSIERATION
+)
+PROMPT_3 = (
+    """Provide top 5 one-person business recommendations related to the user's current skills and interests.
 BUSINESS RECOMMENDATIONS SHOULD ENCAPTULATE THE NICHE(IF PROVIDED), BUT NOT IDENTICAL. 
-""" + TIME_CONSIERATION
-PROMPT_4 = """
+"""
+    + TIME_CONSIERATION
+)
+PROMPT_4 = (
+    """
 Provide a list of skills and knowledge for recommended businesses. 
 Include every aspect of business, such as marketing, accounting, legal, etc.
-""" + COST_CONSIERATION
-PROMPT_5 = """
+"""
+    + COST_CONSIERATION
+)
+PROMPT_5 = (
+    """
 Provide a list of services and tools required to operate recommended businesses to success. 
 These may include emailing, researching, marketing, etc. 
-""" + COST_CONSIERATION
+"""
+    + COST_CONSIERATION
+)
 
-SYSTEM_CONTEXT = """
+SYSTEM_CONTEXT = (
+    """
     You are an experienced business consultant who is going to help the user to start a one-person business based on the user input. 
     You must not assume or add anything that was not mentioned. 
-""" + PROMPT_1 + PROMPT_2 + PROMPT_3 + PROMPT_4 + PROMPT_5
+"""
+    # + PROMPT_1
+    # + PROMPT_2
+    # + PROMPT_3
+    # + PROMPT_4
+    # + PROMPT_5
+)
+
+
+MULTI_SYS_PROMPT = [SYSTEM_CONTEXT + PROMPT_1, PROMPT_2, PROMPT_3, PROMPT_4, PROMPT_5]
