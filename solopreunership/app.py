@@ -127,7 +127,7 @@ def display_questions():
                 }
                 user_prompt = {
                     "role": "user",
-                    "content": f"Here is an overview of my professional experience {string_result}",
+                    "content": f"Here is an overview of my professional experience: {string_result}",
                 }
 
                 messages = [user_prompt]
@@ -139,12 +139,13 @@ def display_questions():
                             "content": f"Here is a document I uploaded, going over my professional experience: {st.session_state.document_ocr}.",
                         }
                     )
-                for i in MULTI_SYS_PROMPT:
+                for prompt in MULTI_SYS_PROMPT:
+                    prompt_type, i = prompt
                     multi_system_prompt = {
-                        "role": "system",
+                        "role": "user",
                         "content": i,
                     }
-                    updated_messages = [multi_system_prompt, system_prompt, *messages]
+                    updated_messages = [system_prompt, *messages, multi_system_prompt]
 
                     # Function to yield and accumulate chunks
                     def stream_chunks():
@@ -152,6 +153,7 @@ def display_questions():
                             st.session_state.response_chunks.append(chunk)
                             yield chunk
 
+                    st.write(prompt_type)
                     st.write_stream(stream_chunks)
 
                     response_text = "".join(st.session_state.response_chunks)
