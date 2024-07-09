@@ -121,10 +121,10 @@ def display_questions():
                     for i in range(len(questions))
                 }
                 string_result = convert_response_to_string(responses_dict)
-                # system_prompt = {
-                #     "role": "system",
-                #     "content": SYSTEM_CONTEXT,
-                # }
+                system_prompt = {
+                    "role": "system",
+                    "content": SYSTEM_CONTEXT,
+                }
                 user_prompt = {
                     "role": "user",
                     "content": f"Here is an overview of my professional experience {string_result}",
@@ -140,11 +140,11 @@ def display_questions():
                         }
                     )
                 for i in MULTI_SYS_PROMPT:
-                    system_prompt = {
+                    multi_system_prompt = {
                         "role": "system",
                         "content": i,
                     }
-                    updated_messages = [system_prompt, *messages]
+                    updated_messages = [multi_system_prompt, system_prompt, *messages]
 
                     # Function to yield and accumulate chunks
                     def stream_chunks():
