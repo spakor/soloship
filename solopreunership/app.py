@@ -42,6 +42,16 @@ def convert_response_to_string(response):
     return "\n".join(f"{k}: {v}" for k, v in response.items())
 
 
+# Function to reset responses
+def reset_responses():
+    st.session_state.step = 0
+    st.session_state.responses = [""] * len(LIST_OF_QUESTIONS)
+    st.session_state.document_ocr = None
+    st.session_state.document_ocr_processing = False
+    st.session_state.response_chunks = []
+    st.session_state.response_text = ""
+
+
 # Function to display the questions one by one
 def display_questions():
     questions = LIST_OF_QUESTIONS
@@ -154,6 +164,5 @@ if "response_text" in st.session_state and st.session_state.response_text:
         data=st.session_state.response_text,
         file_name="response.txt",
         mime="text/plain",
+        on_click=reset_responses,  # Call reset_responses after download
     )
-    # ressting the response text after download
-    st.session_state.response_text = ""
