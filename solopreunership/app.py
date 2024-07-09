@@ -78,7 +78,7 @@ def display_questions():
         unsafe_allow_html=True,
     )
     # st.text(questions[st.session_state.step])
-    st.session_state.responses[st.session_state.step] = st.text_input(
+    st.session_state.responses[st.session_state.step] = st.text_area(
         f"Question {st.session_state.step + 1} / {len(questions)}",
         value=st.session_state.responses[st.session_state.step],
         key=f"answer_{st.session_state.step}",
