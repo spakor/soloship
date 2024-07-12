@@ -19,7 +19,7 @@ LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]
 import json
 import random
 
-with open("solopreunership/business_examples.json", "r") as f:
+with open("solopreunership/prompts/business_examples.json", "r") as f:
     examples = json.load(f)
 #randomly select 5 examples
 random_sample_niche_examples = ", ".join([example_dict["niches"][0] for example_dict in random.sample(examples, 5)])

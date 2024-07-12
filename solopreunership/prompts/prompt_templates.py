@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 from pprint import pprint
-from context import SYSTEM_CONTEXT
+from solopreunership.prompts.context import SYSTEM_CONTEXT
 
 load_dotenv()
 

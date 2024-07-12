@@ -4,7 +4,7 @@ import streamlit as st
 from openai import OpenAI
 
 
-from solopreunership.context import LIST_OF_QUESTIONS, MULTI_SYS_PROMPT, SYSTEM_CONTEXT
+from prompts.context import LIST_OF_QUESTIONS, MULTI_SYS_PROMPT, SYSTEM_CONTEXT
 
 # Constants
 BASE_URL = "https://api.upstage.ai/v1/"
