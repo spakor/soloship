@@ -1,4 +1,4 @@
-# solopreneur-accelerator 🚀
+# Soloship 🚀
 
 Accelerate your solopreneurship!
 
