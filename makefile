@@ -22,7 +22,7 @@ freeze: $(VENV_DIR)/bin/activate
 
 # Run Streamlit app
 run: $(VENV_DIR)/bin/activate
-	$(PYTHON) -m streamlit run solopreunership/app.py
+	$(PYTHON) -m streamlit run streamlit_app.py --server.runOnSave true
 
 # Clean up the virtual environment
 clean:

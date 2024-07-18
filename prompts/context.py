@@ -1,3 +1,6 @@
+import json
+import random
+
 PERSONAL_RELATED = [
     "Tell us your business idea if you have any, you can skip this if you're uncertain.",
     "Tell us about your professional experience. Even if you submitted your resume, giving us more information is always helpful for us to help you more efficiently.",
@@ -16,14 +19,16 @@ BUSINESS_RELATED = [
 
 LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]
 
-import json
-import random
 
-with open("solopreunership/prompts/business_examples.json", "r") as f:
+with open("prompts/business_examples.json", "r") as f:
     examples = json.load(f)
-#randomly select 5 examples
-random_sample_niche_examples = ", ".join([example_dict["niches"][0] for example_dict in random.sample(examples, 5)])
-random_sample_business_examples = ", ".join([example_dict["business"] for example_dict in random.sample(examples, 5)])
+# randomly select 5 examples
+random_sample_niche_examples = ", ".join(
+    [example_dict["niches"][0] for example_dict in random.sample(examples, 5)]
+)
+random_sample_business_examples = ", ".join(
+    [example_dict["business"] for example_dict in random.sample(examples, 5)]
+)
 
 TIME_CONSIERATION = """Ensure to include the time estimation for building audience. State the assumptions if made. 
                         Provide detailed reasoning for estimation in bulletpoints."""
@@ -31,12 +36,12 @@ COST_CONSIERATION = """Ensure to include the operation cost estimation(in USD) i
                         Provide detailed reasoning for estimation in bulletpoints."""
 
 PROMPT_1 = (
-    "## Summary", 
+    "## Summary",
     """
         Provide a quick summary of your understanding of user's experience and desires in bulletpoints up to 5.
         Exact word count: [50 to 100]
         Always address the user as "You", and do not include the user's name.
-    """
+    """,
 )
 PROMPT_2 = (
     "## Niche Recommendations",
@@ -45,7 +50,7 @@ PROMPT_2 = (
         It's better for the recommendations to encompass diverse fields, not constrained to particular field. (e.g. {random_sample_niche_examples})
         Let's think step-by-step, but do not display each step in response.
         Always address the user as "You", and do not include the user's name.
-    """
+    """,
 )
 PROMPT_3 = (
     "## Business Recommendations",
@@ -58,7 +63,7 @@ PROMPT_3 = (
         {TIME_CONSIERATION}
         Let's think step-by-step.
         Always address the user as "You", and do not include the user's name.
-    """
+    """,
 )
 PROMPT_4 = (
     "## Required business skills and knowledge",
@@ -69,7 +74,7 @@ PROMPT_4 = (
         Ensure to inlcude online resources(learning platforms) to acquire each skill and knowledge
         Let's think step-by-step.
         Always address the user as "You", and do not include the user's name.
-    """
+    """,
 )
 PROMPT_5 = (
     "## Services and Tools needed",
@@ -81,15 +86,13 @@ PROMPT_5 = (
         {COST_CONSIERATION}
         Let's think step-by-step.
         Always address the user as "You", and do not include the user's name.
-    """
+    """,
 )
 
-SYSTEM_CONTEXT = (
-    """
+SYSTEM_CONTEXT = """
         You are an experienced business consultant who is going to help the user to start a one-person business based on the user input. 
         You must not assume or add anything that was not mentioned. 
     """
-)
 
 
 MULTI_SYS_PROMPT = [PROMPT_1, PROMPT_2, PROMPT_3, PROMPT_4, PROMPT_5]

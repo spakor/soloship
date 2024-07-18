@@ -6,6 +6,7 @@ from openai import OpenAI
 
 from prompts.context import LIST_OF_QUESTIONS, MULTI_SYS_PROMPT, SYSTEM_CONTEXT
 
+
 # Constants
 BASE_URL = "https://api.upstage.ai/v1/"
 CHAT_URL = BASE_URL + "solar"
@@ -17,6 +18,13 @@ UPSTAGE_API_TOKEN = os.getenv("UPSTAGE_API_TOKEN")
 
 # OpenAI Client Initialization
 client = OpenAI(api_key=UPSTAGE_API_TOKEN, base_url=CHAT_URL)
+
+p1 = st.Page("page1.py", title="Home", icon=":material/rocket_launch:")
+pages = st.navigation([p1])
+pages.run()
+
+# Streamlit app
+st.title("Soloship :rocket:")
 
 
 # Function to create a chat stream
@@ -160,10 +168,7 @@ def display_questions():
                     st.session_state.response_text = response_text
 
 
-# Streamlit app
-st.title("Solopreneur-Accelerator")
 display_questions()
-
 if "response_text" in st.session_state and st.session_state.response_text:
     st.download_button(
         label="Download Response",
