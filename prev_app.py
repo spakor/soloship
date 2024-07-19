@@ -1,3 +1,5 @@
+# NOTE:
+# !!!!!!!THIS FILE WILL BE DEPRECATED!!!!
 import requests
 import os
 import streamlit as st
