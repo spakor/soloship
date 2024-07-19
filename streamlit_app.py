@@ -1,6 +1,10 @@
 import streamlit as st
+from streamlit_extras.app_logo import add_logo
+
 
 # -- Page setup --
+st.set_page_config(page_icon="assets/2.png")
+
 home_page = st.Page(
     page="views/home.py", title="Home Page", icon=":material/cottage:", default=True
 )
@@ -20,29 +24,15 @@ pg = st.navigation(pages=[home_page, how_it_works_page, our_story_page, faq_page
 pg.run()
 
 # --- shared on all pages --
-# Buttons Bar
+st.logo("assets/2.png")
+
 st.markdown(
     """
     <style>
-        button {
-            background-color: rgb(128, 61, 245) !important;
-            color: white !important;
-            border: white !important;
-        }
-    </style>""",
-    unsafe_allow_html=True,
-)
-
-# Progress Bar
-st.markdown(
-    """
-<style>
-    .stProgress > div > div > div > div {
-        background-color: rgb(128, 61, 245) !important;
-    }
-
-    /* Style for the empty part of the progress bar */
-
-</style>""",
+    img[data-testid="stLogo"] {
+            height: 7.5rem;
+}
+</style>
+""",
     unsafe_allow_html=True,
 )
