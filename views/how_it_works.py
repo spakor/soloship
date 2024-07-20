@@ -84,7 +84,7 @@ with content:
         In seconds, you'll receive:
         - Top 5 tailored business ideas suited to your profile
         - Detailed breakdown of required skills and resources
-        - Estimated startup costs and potential earnings
+        - Estimated startup costs
         - Curated list of learning resources to fill skill gaps
         - Step-by-step guide to launch each business idea
 
@@ -95,4 +95,4 @@ with content:
 # Call to Action
 st.write("---")
 st.header("Ready to Start Your Entrepreneurial Journey?")
-st.button("Find Your Perfect Business Idea Now", type="primary")
+st.page_link("views/home.py", label="Find Your Perfect Business Idea Now", icon="🚀", use_container_width=True)
