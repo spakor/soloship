@@ -22,19 +22,19 @@ client = OpenAI(api_key=UPSTAGE_API_TOKEN, base_url=CHAT_URL)
 
 
 # Function to create a chat stream
-def create_chat_stream(messages: list[dict], model: str = SOLAR_MODEL):
+def _create_chat_stream(messages: list[dict], model: str = SOLAR_MODEL):
     stream = client.chat.completions.create(model=model, messages=messages, stream=True)
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:
             yield chunk.choices[0].delta.content
 
 
-def convert_response_to_string(response: dict):
+def _convert_response_to_string(response: dict):
     return "\n".join(f"{k}: {v}" for k, v in response.items())
 
 
 def handle_questionnaire(questionnaire: dict):
-    converted_response = convert_response_to_string(questionnaire)
+    converted_response = _convert_response_to_string(questionnaire)
     system_prompt = {
         "role": "system",
         "content": SYSTEM_CONTEXT,
@@ -45,22 +45,33 @@ def handle_questionnaire(questionnaire: dict):
     }
     messages = [user_prompt]
 
-    # TODO: ADD CSV Upload
-
-    for prompt in MULTI_SYS_PROMPT:
-        prompt_type, i = prompt
-        multi_system_prompt = {
-            "role": "user",
-            "content": i,
-        }
-        updated_messages = [system_prompt, *messages, multi_system_prompt]
-        st.write(prompt_type)
-        st.write_stream(_stream_chunks(updated_messages))
-        response_text = "".join(st.session_state.response_chunks)
-        st.session_state.response_text = response_text
+    placeholder = st.empty()
+    with placeholder.container():
+        for prompt in MULTI_SYS_PROMPT:
+            prompt_type, i = prompt
+            multi_system_prompt = {
+                "role": "user",
+                "content": i,
+            }
+            updated_messages = [system_prompt, *messages, multi_system_prompt]
+            st.write(prompt_type)
+            st.write_stream(_stream_chunks(updated_messages))
+            response_text = "".join(st.session_state.llm_response_chunks)
+            prompt_dict = {prompt_type: response_text}
+            st.session_state.llm_prompt_dict.update(prompt_dict)
+            st.session_state.llm_response_text = response_text
 
 
 def _stream_chunks(updated_messages: list[str]):
-    for chunk in create_chat_stream(updated_messages):
-        st.session_state.response_chunks.append(chunk)
+    for chunk in _create_chat_stream(updated_messages):
+        st.session_state.llm_response_chunks.append(chunk)
         yield chunk
+
+
+def _extract_document_ocr(uploaded_file):
+    headers = {"Authorization": f"Bearer {UPSTAGE_API_TOKEN}"}
+    files = {"document": uploaded_file}
+    print("sending a request to the OCR ....")
+    response = requests.post(OCR_URL, headers=headers, files=files)
+    response_json = response.json()
+    return response_json.get("text")
