@@ -2,19 +2,19 @@ import json
 import random
 
 PERSONAL_RELATED = [
-    "Tell us your business idea if you have any, you can skip this if you're uncertain.",
-    "Tell us about your professional experience. Even if you submitted your resume, giving us more information is always helpful for us to help you more efficiently.",
-    "Tell us about yourself that are outside of your professional area such as a your hobby or interest. The more details you provide, the better we can help you.",
-    "Tell us about anything you want us to know.",
+    """If you have a business idea in mind, please describe it in detail. \n If you're uncertain, feel free to skip this question.""",
+    """Please share your professional experience, including roles, industries, and key skills. \n Even if you've submitted your resume, additional details here can help us tailor our recommendations more effectively.""",
+    """Describe your interests, hobbies, or passions outside of your professional life. \n The more specific you can be, the better we can align business ideas with your personal interests.""",
+    """Is there any additional information about yourself, your goals, or your circumstances that you'd like us to consider? \n This could include personal challenges, unique skills, or specific aspirations.""",
 ]
 
 BUSINESS_RELATED = [
-    "How many hours can you invest in your business per week?",
-    "Every business takes time to make profit. How long can you endure without seeing any profit? ie) 6 months, 1 year",
-    "How much money are you willing to invest in this business without seeing any profit?",
-    "Have you tried any business in the past? If so, please tell us more about your business experience.",
-    "What would you like to achieve through this business?",
-    "Do you have a financial goal for this business? If so, how much money would you like to make realistically?",
+    """How many hours per week can you realistically dedicate to your new business? \n Consider your current commitments and desired work-life balance.""",
+    """Every business requires time to become profitable. \n How long are you prepared to work on the business without seeing a profit? (e.g., 6 months, 1 year, 2 years)""",
+    """What's the maximum amount you're willing to invest in this business before seeing a return? \n Please specify an amount you're comfortable with potentially losing.""",
+    """Have you had any previous entrepreneurial experiences? \n If so, please describe the nature of the business, your role, and what you learned from the experience.""",
+    """What are your primary motivations for starting this business? (e.g., financial independence, pursuing a passion, solving a problem, etc.)""",
+    """Do you have a specific financial goal for this business? \n If so, what's a realistic annual income you'd like to achieve within the first few years?""",
 ]
 
 LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]

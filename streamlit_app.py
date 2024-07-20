@@ -6,7 +6,7 @@ from streamlit_extras.app_logo import add_logo
 st.set_page_config(page_icon="assets/2.png")
 
 home_page = st.Page(
-    page="views/home.py", title="Home Page", icon=":material/cottage:", default=True
+    page="views/home.py", title="Home", icon=":material/cottage:", default=True
 )
 how_it_works_page = st.Page(
     page="views/how_it_works.py", title="How It Works", icon=":material/neurology:"
