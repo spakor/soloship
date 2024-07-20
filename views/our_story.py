@@ -97,5 +97,5 @@ Are you ready to chart your own course in the business world? With SoloShip, you
 Let's set sail on your entrepreneurial journey together!
 """)
 
-if st.button("Start Your Business Adventure Now"):
+if st.button("Start Your Business Adventure Now", type="primary"):
     st.switch_page("views/home.py")
