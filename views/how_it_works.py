@@ -95,4 +95,5 @@ with content:
 # Call to Action
 st.write("---")
 st.header("Ready to Start Your Entrepreneurial Journey?")
-st.page_link("views/home.py", label="Find Your Perfect Business Idea Now", icon="🚀", use_container_width=True)
+if st.button("🚀 Find Your Perfect Business Idea Now", type="primary"):
+    st.switch_page("views/home.py")
