@@ -53,7 +53,7 @@ with image:
 with content:
     st.subheader("The 'What If' Moment")
     st.write("""
-    It started with a casual conversation. Two of us, venting about the scattered nature of business information, when suddenly:
+    It started with a casual conversation. We were venting about the scattered nature of business information, when suddenly:
 
     "What if we could build a one-stop shop for aspiring entrepreneurs?"
 
@@ -71,7 +71,8 @@ with image:
 with content:
     st.subheader("From Idea to Action")
     st.write("""
-    Energized by this vision, we dove headfirst into a hackathon hosted by Upstage.ai. Our mission? To create a tool that could guide anyone from 'I have an idea' to 'I'm starting my business' – seamlessly and confidently.
+    Energized by this vision, we dove headfirst into a hackathon hosted by Upstage.ai. \n 
+    Our mission? To create a tool that could guide anyone from 'I have an idea' to 'I'm starting my business' – seamlessly and confidently.
     """)
 
 # SoloShip: Your Entrepreneurial Compass
@@ -85,7 +86,7 @@ with image:
 with content:
     st.subheader("SoloShip: Your Entrepreneurial Compass")
     st.write("""
-    That's how SoloShip was born. We're not just a platform; we're your co-navigators in the entrepreneurial journey. We believe that with the right guidance, anyone can transform their skills and passions into a thriving business.
+    That's how SoloShip was born. We're not just a platform; we're your co-navigators in the entrepreneurial journey. We believe that with the right guidance, anyone can transform their skills and passions into a thriving business. \n 
 
     Our goal? To make starting a business as exciting as imagining it. No more scattered information, no more overwhelm. Just clear, personalized pathways to turn your dreams into reality.
     """)
