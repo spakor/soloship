@@ -5,7 +5,7 @@ from llm.helper import handle_questionnaire
 from prompts.context import LIST_OF_QUESTIONS
 
 # --- Module vars ---
-TOTAL_QUESTIONS = len(LIST_OF_QUESTIONS)
+TOTAL_QUESTIONS = 2  # len(LIST_OF_QUESTIONS)
 
 # -- Hero Secion --
 col1, _ = st.columns(2, gap="small", vertical_alignment="center")
@@ -28,6 +28,10 @@ if "responses" not in st.session_state:
     st.session_state.responses = [""] * TOTAL_QUESTIONS
 if "response_chunks" not in st.session_state:
     st.session_state.response_chunks = []
+if "response_dict" not in st.session_state:
+    st.session_state.response_dict = {}
+if "regenerated " not in st.session_state:
+    st.session_state.regenerated = False
 
 
 # -- Questionnaire Dialog--
@@ -100,16 +104,85 @@ def show_questionnaire():
 
 
 # --- Send Responses to LLM --- #
-# @st.experimental_fragment
+# def send_to_llm():
+#     if len(st.session_state.response_chunks) == 0 or st.session_state.regenerated:
+#         with st.spinner("Loading..."):
+#             responses_dict = {
+#                 LIST_OF_QUESTIONS[i]: st.session_state.responses[i]
+#                 for i in range(TOTAL_QUESTIONS)
+#             }
+#             handle_questionnaire(responses_dict)
+#             col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
+
+#             with col1:
+#                 show_start_over_button()
+#             with col4:
+#                 show_re_gen_button()
+
+
+# def show_existing_response():
+#     if len(st.session_state.response_chunks) > 0:
+#         # response_text = "".join(st.session_state.response_chunks)
+#         for prompt, text in st.session_state.response_dict.items():
+#             st.write(prompt)
+#             st.write(text)
+#         col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
+
+#         with col1:
+#             show_start_over_button()
+#         with col4:
+#             show_re_gen_button()
+
+
+def show_existing_response():
+    if len(st.session_state.response_dict) > 0 and not st.session_state.regenerated:
+        with st.container():
+            for prompt, text in st.session_state.response_dict.items():
+                st.write(prompt)
+                st.write(text)
+
+        # with st.container():
+        col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
+        with col1:
+            show_start_over_button()
+        with col4:
+            show_re_gen_button()
+
+
 def send_to_llm():
+    if st.session_state.regenerated:
+        # need to reset
+        st.session_state.regenerated = False
+    st.session_state.response_chunks = []  # Clear previous chunks
     with st.spinner("Loading..."):
         responses_dict = {
             LIST_OF_QUESTIONS[i]: st.session_state.responses[i]
             for i in range(TOTAL_QUESTIONS)
         }
         handle_questionnaire(responses_dict)
+    st.session_state.submitted = False
+
+    # TODO: Have a way we can regenerate the button at the bottom, cause after the second regnerate
+    # they don't clear until code reaches here and w don't want to re-run the whole page just for it.
+    button_placeholder = st.empty()
+    with button_placeholder.container():
+        col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
+        with col1:
+            show_start_over_button()
+        with col4:
+            show_re_gen_button()
 
 
+@st.experimental_fragment
+def show_re_gen_button():
+    if st.button("Regenerate", type="primary"):
+        st.session_state.response_chunks = []
+        st.session_state.regenerated = True
+        st.session_state.submitted = True
+        st.rerun()
+
+
+@st.experimental_fragment
 def show_start_over_button():
     if st.button("Start Over", type="primary"):
         st.session_state.clear()
@@ -117,13 +190,12 @@ def show_start_over_button():
 
 
 # --- Questionnaire ---
-if st.session_state.submitted == False:
+if not st.session_state.submitted and len(st.session_state.response_dict) == 0:
     show_questionnaire()
+
+# --- Handle Responses ---
+if st.session_state.submitted or st.session_state.regenerated:
+    send_to_llm()
+
 else:
-    if len(st.session_state.response_chunks) > 0:
-        response_text = "".join(st.session_state.response_chunks)
-        st.write(response_text)
-        show_start_over_button()
-    else:
-        send_to_llm()
-        show_start_over_button()
+    show_existing_response()

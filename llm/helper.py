@@ -57,7 +57,9 @@ def handle_questionnaire(questionnaire: dict):
         st.write(prompt_type)
         st.write_stream(_stream_chunks(updated_messages))
         response_text = "".join(st.session_state.response_chunks)
+        st.session_state.response_dict = {prompt_type: response_text}
         st.session_state.response_text = response_text
+        break
 
 
 def _stream_chunks(updated_messages: list[str]):
