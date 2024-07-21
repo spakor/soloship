@@ -1,7 +1,8 @@
+import requests
 import streamlit as st
 from streamlit_extras.colored_header import colored_header
 
-from llm.helper import handle_questionnaire
+from llm.helper import OCR_URL, UPSTAGE_API_TOKEN, handle_questionnaire
 from prompts.context import LIST_OF_QUESTIONS
 
 # --- Module vars ---
@@ -32,6 +33,10 @@ if "response_dict" not in st.session_state:
     st.session_state.response_dict = {}
 if "regenerated " not in st.session_state:
     st.session_state.regenerated = False
+if "document_ocr" not in st.session_state:
+    st.session_state.document_ocr = None
+if "document_ocr_processing" not in st.session_state:
+    st.session_state.document_ocr_processing = False
 
 
 # -- Questionnaire Dialog--
@@ -189,9 +194,40 @@ def show_start_over_button():
         st.rerun()
 
 
+# --- DOCUMENT LOADER
+# Function to extract text from an uploaded document using OCR
+def extract_document_ocr(uploaded_file):
+    headers = {"Authorization": f"Bearer {UPSTAGE_API_TOKEN}"}
+    files = {"document": uploaded_file}
+    print("sending a request to the OCR ....")
+    response = requests.post(OCR_URL, headers=headers, files=files)
+    response_json = response.json()
+    return response_json.get("text")
+
+
+@st.experimental_fragment
+def show_document_upload():
+    with st.expander("Document Upload (Optional)"):
+        uploaded_file = st.file_uploader(
+            "You can upload a document such as a CV or a business proposal (optional)",
+            help="This can help the AI have more information on your experience.",
+            type=["JPEG", "PNG", "BMP", "PDF", "TIFF", "HEIC"],
+        )
+        if (
+            uploaded_file is not None
+            and st.session_state.document_ocr is None
+            and not st.session_state.document_ocr_processing
+        ):
+            st.session_state.document_ocr_processing = True
+            with st.spinner("Uploading your document..."):
+                st.session_state.document_ocr = extract_document_ocr(uploaded_file)
+            st.session_state.document_ocr_processing = False
+
+
 # --- Questionnaire ---
 if not st.session_state.submitted and len(st.session_state.response_dict) == 0:
     show_questionnaire()
+    show_document_upload()
 
 # --- Handle Responses ---
 if st.session_state.submitted or st.session_state.regenerated:
