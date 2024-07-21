@@ -6,7 +6,7 @@ from llm.helper import OCR_URL, UPSTAGE_API_TOKEN, handle_questionnaire
 from prompts.context import LIST_OF_QUESTIONS
 
 # --- Module vars ---
-TOTAL_QUESTIONS = 2  # len(LIST_OF_QUESTIONS)
+TOTAL_QUESTIONS = len(LIST_OF_QUESTIONS)
 
 # -- Hero Secion --
 col1, _ = st.columns(2, gap="small", vertical_alignment="center")
@@ -140,32 +140,36 @@ def show_questionnaire():
 
 
 def show_existing_response():
-    if len(st.session_state.response_dict) > 0 and not st.session_state.regenerated:
-        with st.container():
-            for prompt, text in st.session_state.response_dict.items():
-                st.write(prompt)
-                st.write(text)
+    placeholder = st.empty()
+    with placeholder.container(height=700, border=False):
+        if len(st.session_state.response_dict) > 0 and not st.session_state.regenerated:
+            with st.container():
+                for prompt, text in st.session_state.response_dict.items():
+                    st.subheader(f":violet[{prompt}]")
+                    st.write(text)
+                    st.divider()
 
-        # with st.container():
-        col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
-        with col1:
-            show_start_over_button()
-        with col4:
-            show_re_gen_button()
+    col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
+    with col1:
+        show_start_over_button()
+    with col4:
+        show_regenerate_button()
 
 
 def send_to_llm():
-    if st.session_state.regenerated:
-        # need to reset
-        st.session_state.regenerated = False
-    st.session_state.response_chunks = []  # Clear previous chunks
-    with st.spinner("Loading..."):
-        responses_dict = {
-            LIST_OF_QUESTIONS[i]: st.session_state.responses[i]
-            for i in range(TOTAL_QUESTIONS)
-        }
-        handle_questionnaire(responses_dict)
-    st.session_state.submitted = False
+    placeholder = st.empty()
+    with placeholder.container(height=700, border=False):
+        if st.session_state.regenerated:
+            # need to reset
+            st.session_state.regenerated = False
+        st.session_state.response_chunks = []  # Clear previous chunks
+        with st.spinner("Loading..."):
+            responses_dict = {
+                LIST_OF_QUESTIONS[i]: st.session_state.responses[i]
+                for i in range(TOTAL_QUESTIONS)
+            }
+            handle_questionnaire(responses_dict)
+        st.session_state.submitted = False
 
     # TODO: Have a way we can regenerate the button at the bottom, cause after the second regnerate
     # they don't clear until code reaches here and w don't want to re-run the whole page just for it.
@@ -175,11 +179,11 @@ def send_to_llm():
         with col1:
             show_start_over_button()
         with col4:
-            show_re_gen_button()
+            show_regenerate_button()
 
 
 @st.experimental_fragment
-def show_re_gen_button():
+def show_regenerate_button():
     if st.button("Regenerate", type="primary"):
         st.session_state.response_chunks = []
         st.session_state.regenerated = True
@@ -212,6 +216,7 @@ def show_document_upload():
             "You can upload a document such as a CV or a business proposal (optional)",
             help="This can help the AI have more information on your experience.",
             type=["JPEG", "PNG", "BMP", "PDF", "TIFF", "HEIC"],
+            accept_multiple_files=False,
         )
         if (
             uploaded_file is not None

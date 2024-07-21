@@ -36,7 +36,7 @@ COST_CONSIERATION = """Ensure to include the operation cost estimation(in USD) i
                         Provide detailed reasoning for estimation in bulletpoints."""
 
 PROMPT_1 = (
-    "## Summary",
+    "Summary",
     """
         Provide a quick summary of your understanding of user's experience and desires in bulletpoints up to 5.
         Exact word count: [50 to 100]
@@ -44,7 +44,7 @@ PROMPT_1 = (
     """,
 )
 PROMPT_2 = (
-    "## Niche Recommendations",
+    "Niche Recommendations",
     f"""
         Provide top 5 niche recommendations related to the user's current skills and interests. 
         It's better for the recommendations to encompass diverse fields, not constrained to particular field. (e.g. {random_sample_niche_examples})
@@ -53,7 +53,7 @@ PROMPT_2 = (
     """,
 )
 PROMPT_3 = (
-    "## Business Recommendations",
+    "Business Recommendations",
     f"""
         Provide top 5 one-person business recommendations related to the user's professional experience and personal interests. 
         It's better for the recommendations to encompass diverse fields, not constrained to particular field. (e.g. {random_sample_business_examples})
@@ -77,7 +77,7 @@ PROMPT_4 = (
     """,
 )
 PROMPT_5 = (
-    "## Services and Tools needed",
+    "Services and Tools needed",
     """
         Provide a list of existing services and tools required to operate recommended businesses to success. 
         These may include emailing, researching, marketing, etc. 
