@@ -123,5 +123,4 @@ Let's set sail on your entrepreneurial journey together!
 )
 
 if st.button("Start Your Business Adventure Now", type="primary"):
-
     st.switch_page("views/home.py")
