@@ -36,6 +36,8 @@ if "response_dict" not in st.session_state:
     st.session_state.response_dict = {}
 if "regenerated " not in st.session_state:
     st.session_state.regenerated = False
+if "startover_button " not in st.session_state:
+    st.session_state.startover_button = False
 if "document_ocr" not in st.session_state:
     st.session_state.document_ocr = None
 if "document_ocr_processing" not in st.session_state:
@@ -124,7 +126,7 @@ def show_questionnaire():
 # --- Handle LLM Responses --- #
 def show_existing_response():
     placeholder = st.empty()
-    with placeholder.container(height=700, border=False):
+    with placeholder.container(border=False):
         if len(st.session_state.response_dict) > 0 and not st.session_state.regenerated:
             with st.container():
                 for prompt, text in st.session_state.response_dict.items():
@@ -134,10 +136,10 @@ def show_existing_response():
             st.toast("Ready!", icon=":material/rocket_launch:")
 
     col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
-    with col1:
-        show_start_over_button()
     with col4:
-        show_regenerate_button()
+        show_start_over_button()
+    # with col4:
+    #     show_regenerate_button()
 
 
 @st.experimental_fragment
@@ -155,9 +157,10 @@ def show_lottie():
         placeholder.empty()
 
 
+@st.experimental_fragment
 def send_to_llm():
     placeholder = st.empty()
-    with placeholder.container(height=700, border=False):
+    with placeholder.container(border=False):
         if st.session_state.regenerated:
             # need to reset
             st.session_state.regenerated = False
@@ -176,26 +179,29 @@ def send_to_llm():
     button_placeholder = st.empty()
     with button_placeholder.container():
         col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
-        with col1:
-            show_start_over_button()
         with col4:
-            show_regenerate_button()
+            show_start_over_button()
+        # with col4:
+        #     show_regenerate_button()
 
 
 @st.experimental_fragment
 def show_regenerate_button():
-    if st.button("Regenerate", type="primary"):
-        st.session_state.response_chunks = []
-        st.session_state.regenerated = True
-        st.session_state.submitted = True
-        st.rerun()
+    if not st.session_state.submitted or st.session_state.regenerated:
+        if st.button("Regenerate", type="primary"):
+            st.session_state.response_chunks = []
+            st.session_state.regenerated = True
+            st.session_state.submitted = True
+            st.rerun()
 
 
 @st.experimental_fragment
 def show_start_over_button():
-    if st.button("Start Over", type="primary"):
-        st.session_state.clear()
-        st.rerun()
+    if len(st.session_state.response_chunks) > 0:
+        if st.button("Start Over", type="primary"):
+            st.session_state.clear()
+            st.session_state.startover_button = False
+            st.rerun()
 
 
 # --- DOCUMENT LOADER
@@ -227,6 +233,7 @@ def show_document_upload():
             with st.spinner("Uploading your document..."):
                 st.session_state.document_ocr = extract_document_ocr(uploaded_file)
             st.session_state.document_ocr_processing = False
+            st.rerun()
 
 
 # Function to display a random quote
@@ -278,14 +285,13 @@ if not st.session_state.submitted and len(st.session_state.response_dict) == 0:
 # --- Handle Responses ---
 if st.session_state.submitted or st.session_state.regenerated:
     show_lottie()
-    if st.session_state.lottie_shown:
+    if st.session_state.lottie_shown and not st.session_state.startover_button:
         send_to_llm()
+
+        ### -- Footer ---
+        # URL for the Lottie animation
+        display_random_quote()
+        footer_lottie()
 
 else:
     show_existing_response()
-
-
-### -- Footer ---
-# URL for the Lottie animation
-display_random_quote()
-footer_lottie()
