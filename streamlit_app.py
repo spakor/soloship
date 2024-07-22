@@ -1,9 +1,19 @@
 import streamlit as st
-from streamlit_extras.app_logo import add_logo
+from streamlit_lottie import st_lottie
+import requests
+
+
+# TODO: Make this a helper function
+def load_lottie_url(url: str):
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    return response.json()
 
 
 # -- Page setup --
 st.set_page_config(page_icon="assets/2.png")
+
 
 home_page = st.Page(
     page="views/home.py", title="Home", icon=":material/cottage:", default=True

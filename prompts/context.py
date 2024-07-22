@@ -66,7 +66,7 @@ PROMPT_3 = (
     """,
 )
 PROMPT_4 = (
-    "## Required business skills and knowledge",
+    "Required business skills and knowledge",
     """
         Provide a list of skills and knowledge for recommended businesses. 
         Include every aspect of business, such as marketing, accounting, legal, etc.
