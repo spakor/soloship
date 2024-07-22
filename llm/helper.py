@@ -45,7 +45,13 @@ def handle_questionnaire(questionnaire: dict):
     }
     messages = [user_prompt]
 
-    # TODO: ADD CSV Upload
+    if st.session_state.document_ocr:
+        messages.append(
+            {
+                "role": "user",
+                "content": f"Here is a document I uploaded, going over my professional experience: {st.session_state.document_ocr}.",
+            }
+        )
 
     for prompt in MULTI_SYS_PROMPT:
         prompt_type, i = prompt
@@ -54,9 +60,12 @@ def handle_questionnaire(questionnaire: dict):
             "content": i,
         }
         updated_messages = [system_prompt, *messages, multi_system_prompt]
-        st.write(prompt_type)
+
+        st.subheader(f":violet[{prompt_type}]")
         st.write_stream(_stream_chunks(updated_messages))
+        st.divider()
         response_text = "".join(st.session_state.response_chunks)
+        st.session_state.response_dict = {prompt_type: response_text}
         st.session_state.response_text = response_text
 
 
