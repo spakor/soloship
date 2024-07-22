@@ -1,34 +1,48 @@
-PERSONAL_RELATED_1 = """"""
+PERSONAL_RELATED_1 = """
+I have an idea for a personalized meal planning and grocery delivery service for busy professionals. 
+The service would create weekly meal plans based on dietary preferences and restrictions, then deliver pre-portioned ingredients and recipes to customers' homes.
+"""
+
 PERSONAL_RELATED_2 = """
-I started my career as a communications officer in the Air Force. 
-There I was trained in effective communication(both written and spoken) and leadership skills.
-I joined World Vision, the largest global non-profit organization, because I wanted to use my skills to help the others.
-After spending nearly three years there, I decided to go back to coding because I wanted more hands on experience in software. 
-I enjoyed writing code and workgin with other software engineers, but I learned that I was good at bridging the gap between tech and non-tech people.
-I'm also passionate about connecting people with the right business opportunities. 
+I have a background in software engineering, with 5 years of experience at a major tech company.
+My roles have included full-stack development and leading small teams on various projects.
+I've worked primarily with JavaScript, Python, and cloud technologies like AWS.
+In addition to technical skills, I've developed strong problem-solving and project management abilities.
+Recently, I've been focusing on machine learning and AI, completing several online courses in these areas.
 """
+
 PERSONAL_RELATED_3 = """
-Outside of my professional work, I enjoy creative work like making youtube videos and taking photos. 
+Outside of work, I'm an avid hiker and nature photographer. I enjoy capturing landscapes and wildlife.
+I also volunteer at a local coding bootcamp, mentoring aspiring developers on weekends.
+I'm passionate about sustainable living and have been experimenting with urban gardening.
 """
+
 PERSONAL_RELATED_4 = """
-I am determined to build my own business! 
+I'm looking to combine my technical skills with my passion for the outdoors and sustainability.
+I'm open to relocating for the right opportunity and am comfortable with remote work.
+Long-term, I hope to create a business that has a positive environmental impact.
 """
 
 BUSINESS_RELATED_1 = """
-20 hours per week
+30 hours per week
 """
+
 BUSINESS_RELATED_2 = """
-1 year
+18 months
 """
+
 BUSINESS_RELATED_3 = """
-10,000 USD
+25,000 USD
 """
+
 BUSINESS_RELATED_4 = """
-I used to write articles on Medium.com and made $150 in total, but I wanted to have more control over the profit. 
+I created a hiking app as a side project that gained about 5,000 users. It wasn't monetized, but I learned a lot about user engagement and app development.
 """
+
 BUSINESS_RELATED_5 = """
-Build my personal brand and work on my own terms. 
+Achieve financial independence, create something meaningful, and have the flexibility to work on projects I'm passionate about.
 """
+
 BUSINESS_RELATED_6 = """
-Ideally I want to make 10,000 USD/month and more. 
+I'm aiming for an annual income of 120,000 USD within the first 3 years.
 """

@@ -99,7 +99,7 @@ with st.expander("Can I use SoloShip if I already have a business idea in mind?"
         Our system can offer complementary ideas or highlight aspects of your existing concept you might not have considered.
     ''')
 
-with st.expander("What if I don't like any of the five business ideas provided?"):
+with st.expander("What if I don't like any of the three business ideas provided?"):
     st.write('''
         No problem! You can easily retake the questionnaire, providing more detailed information to refine your results. \n
         Remember, the more information you share, the better we can tailor our suggestions to your preferences.

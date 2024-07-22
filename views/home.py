@@ -1,8 +1,10 @@
 import random
+import re
 import time
 import requests
 import streamlit as st
 from streamlit_lottie import st_lottie
+from collections import OrderedDict
 
 
 from llm.helper import OCR_URL, UPSTAGE_API_TOKEN, handle_questionnaire
@@ -33,7 +35,7 @@ if "responses" not in st.session_state:
 if "response_chunks" not in st.session_state:
     st.session_state.response_chunks = []
 if "response_dict" not in st.session_state:
-    st.session_state.response_dict = {}
+    st.session_state.response_dict = OrderedDict()
 if "regenerated " not in st.session_state:
     st.session_state.regenerated = False
 if "startover_button " not in st.session_state:
@@ -59,81 +61,84 @@ def load_lottie_url(url: str):
 def show_questionnaire():
     last_question_index = TOTAL_QUESTIONS - 1
 
-    if not st.session_state.submitted == True:
-        # --- Session related to the questionnaire ---
-        if "step" not in st.session_state:
-            st.session_state.step = 0
-        if "responses" not in st.session_state:
-            st.session_state.responses = [""] * TOTAL_QUESTIONS
+    placeholder = st.empty()
+    with placeholder.container(border=True):
+        if not st.session_state.submitted == True:
+            # --- Session related to the questionnaire ---
+            if "step" not in st.session_state:
+                st.session_state.step = 0
+            if "responses" not in st.session_state:
+                st.session_state.responses = [""] * TOTAL_QUESTIONS
 
-        # --- Setting the progress bar ---
-        progress = (st.session_state.step + 1) / TOTAL_QUESTIONS
-        st.progress(progress)
+            # --- Setting the progress bar ---
+            progress = (st.session_state.step + 1) / TOTAL_QUESTIONS
+            st.progress(progress)
 
-        # --- Setting the Questions and setting the Answer ---
-        # Writes the question according to the step (index) the user is currently on
-        st.write(LIST_OF_QUESTIONS[st.session_state.step])
-        # Sets the answer accordining to the step the user is currently on
-        st.session_state.responses[st.session_state.step] = st.text_area(
-            f"Question {st.session_state.step + 1} / {TOTAL_QUESTIONS}",
-            key=f"question_{st.session_state.step}",
-            # If a value has already been given for the question prior to submission it will be retrieved.
-            value=st.session_state.responses[st.session_state.step],
-        )
+            # --- Setting the Questions and setting the Answer ---
+            # Writes the question according to the step (index) the user is currently on
+            st.write(LIST_OF_QUESTIONS[st.session_state.step])
+            # Sets the answer accordining to the step the user is currently on
+            st.session_state.responses[st.session_state.step] = st.text_area(
+                f"Question {st.session_state.step + 1} / {TOTAL_QUESTIONS}",
+                key=f"question_{st.session_state.step}",
+                # If a value has already been given for the question prior to submission it will be retrieved.
+                value=st.session_state.responses[st.session_state.step],
+            )
 
-        # --- Creating the back & next buttons ---
+            # --- Creating the back & next buttons ---
 
-        back, _, next = st.columns(3, gap="large")
+            back, _, next = st.columns(3, gap="large")
 
-        prev_disabled = st.session_state.step == 0
-        if st.session_state.step != 0:
-            if back.button(
-                "back",
-                type="primary",
-                disabled=prev_disabled,
-                use_container_width=True,
-                key="back-button",
-            ):
-                st.session_state.step -= 1
-                st.rerun()
-
-        if st.session_state.step < last_question_index:
-            if next.button(
-                "next", type="primary", use_container_width=True, key="next-button"
-            ):
-                st.session_state.step += 1
-                st.rerun()
-
-        # --- Setting the submit button ---
-        if st.session_state.step == last_question_index:
-            if any(response != "" for response in st.session_state.responses):
-                if next.button(
-                    "submit",
+            prev_disabled = st.session_state.step == 0
+            if st.session_state.step != 0:
+                if back.button(
+                    "back",
                     type="primary",
+                    disabled=prev_disabled,
                     use_container_width=True,
+                    key="back-button",
                 ):
-                    st.session_state.submitted = True
+                    st.session_state.step -= 1
                     st.rerun()
 
-            if all(response == "" for response in st.session_state.responses):
-                if next.button("submit", type="primary", use_container_width=True):
-                    st.error(
-                        "Please answer at least one question.",
-                        icon=":material/warning:",
-                    )
+            if st.session_state.step < last_question_index:
+                if next.button(
+                    "next", type="primary", use_container_width=True, key="next-button"
+                ):
+                    st.session_state.step += 1
+                    st.rerun()
+
+            # --- Setting the submit button ---
+            if st.session_state.step == last_question_index:
+                if any(response != "" for response in st.session_state.responses):
+                    if next.button(
+                        "submit",
+                        type="primary",
+                        use_container_width=True,
+                    ):
+                        st.session_state.submitted = True
+                        st.rerun()
+
+                if all(response == "" for response in st.session_state.responses):
+                    if next.button("submit", type="primary", use_container_width=True):
+                        st.error(
+                            "Please answer at least one question.",
+                            icon=":material/warning:",
+                        )
 
 
 # --- Handle LLM Responses --- #
 def show_existing_response():
     placeholder = st.empty()
-    with placeholder.container(border=False):
+    with placeholder.container(height=700, border=False):
         if len(st.session_state.response_dict) > 0 and not st.session_state.regenerated:
             with st.container():
                 for prompt, text in st.session_state.response_dict.items():
                     st.subheader(f":violet[{prompt}]")
-                    st.write(text)
+                    text = re.sub(r"(?<! )#", "\n #", text, count=1)
+                    st.markdown(text)
+                    # st.markdown()
                     st.divider()
-            st.toast("Ready!", icon=":material/rocket_launch:")
 
     col1, _, _, col4 = st.columns(4, gap="large", vertical_alignment="bottom")
     with col4:
@@ -160,7 +165,7 @@ def show_lottie():
 @st.experimental_fragment
 def send_to_llm():
     placeholder = st.empty()
-    with placeholder.container(border=False):
+    with placeholder.container(height=700, border=False):
         if st.session_state.regenerated:
             # need to reset
             st.session_state.regenerated = False
@@ -171,7 +176,6 @@ def send_to_llm():
             for i in range(TOTAL_QUESTIONS)
         }
         handle_questionnaire(responses_dict)
-        st.toast("Ready!", icon=":material/rocket_launch:")
         st.session_state.submitted = False
 
     # TODO: Have a way we can regenerate the button at the bottom, cause after the second regnerate
@@ -294,4 +298,6 @@ if st.session_state.submitted or st.session_state.regenerated:
         footer_lottie()
 
 else:
-    show_existing_response()
+    # TODO: Disable until we fix how to best display previous responses
+    # show_existing_response()
+    st.session_state.submitted = False

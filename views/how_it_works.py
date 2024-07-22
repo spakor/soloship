@@ -82,7 +82,7 @@ with content:
     st.write(
         """
         In seconds, you'll receive:
-        - Top 5 tailored business ideas suited to your profile
+        - Top 3 tailored business ideas suited to your profile
         - Detailed breakdown of required skills and resources
         - Estimated startup costs
         - Curated list of learning resources to fill skill gaps

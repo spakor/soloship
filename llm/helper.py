@@ -1,7 +1,7 @@
-import requests
 import os
 import streamlit as st
 from openai import OpenAI
+from collections import OrderedDict
 
 from prompts.context import MULTI_SYS_PROMPT, SYSTEM_CONTEXT
 
@@ -65,8 +65,9 @@ def handle_questionnaire(questionnaire: dict):
         st.write_stream(_stream_chunks(updated_messages))
         st.divider()
         response_text = "".join(st.session_state.response_chunks)
-        st.session_state.response_dict = {prompt_type: response_text}
+        st.session_state.response_dict[prompt_type] = response_text
         st.session_state.response_text = response_text
+    st.toast("Ready!", icon=":material/rocket_launch:")
 
 
 def _stream_chunks(updated_messages: list[str]):
