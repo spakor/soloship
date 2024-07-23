@@ -1,198 +1,113 @@
-import json
-import random
-
-PERSONAL_RELATED = [
-    """If you have a business idea in mind, please describe it in detail. \n If you're uncertain, feel free to skip this question.""",
-    """Please share your professional experience, including roles, industries, and key skills. \n Even if you've submitted your resume, additional details here can help us tailor our recommendations more effectively.""",
-    """Describe your interests, hobbies, or passions outside of your professional life. \n The more specific you can be, the better we can align business ideas with your personal interests.""",
-    """Is there any additional information about yourself, your goals, or your circumstances that you'd like us to consider? \n This could include personal challenges, unique skills, or specific aspirations.""",
-]
-
-BUSINESS_RELATED = [
-    """How many hours per week can you realistically dedicate to your new business? \n Consider your current commitments and desired work-life balance.""",
-    """Every business requires time to become profitable. \n How long are you prepared to work on the business without seeing a profit? (e.g., 6 months, 1 year, 2 years)""",
-    """What's the maximum amount you're willing to invest in this business before seeing a return? \n Please specify an amount you're comfortable with potentially losing.""",
-    """Have you had any previous entrepreneurial experiences? \n If so, please describe the nature of the business, your role, and what you learned from the experience.""",
-    """What are your primary motivations for starting this business? (e.g., financial independence, pursuing a passion, solving a problem, etc.)""",
-    """Do you have a specific financial goal for this business? \n If so, what's a realistic annual income you'd like to achieve within the first few years?""",
-]
-
-LIST_OF_QUESTIONS = [*PERSONAL_RELATED, *BUSINESS_RELATED]
+Q1 = "Walk us through your professional journey. Whether you have a business idea or not, what aspects of your experience do you think could lead to entrepreneurial opportunities?"
+Q2 = "Beyond your professional skills, what personal interests, hobbies, or life experiences do you have that could potentially shape your entrepreneurial path?"
+Q3 = "What draws you to the idea of entrepreneurship? When you think about your future, what kind of impact or change would you like to make through your work?"
+Q4 = "Who are your business heroes or role models? What specific products or companies make you think, 'I wish I'd created that!' and why do they resonate with you?"
+Q5 = "What's the biggest hurdle standing between you and launching your dream business? If you had a magic wand to solve one challenge, what would it be?"
 
 
-with open("prompts/business_examples.json", "r") as f:
-    examples = json.load(f)
-# randomly select 5 examples
-random_sample_niche_examples = ", ".join(
-    [example_dict["niches"][0] for example_dict in random.sample(examples, 5)]
-)
-random_sample_business_examples = ", ".join(
-    [example_dict["business"] for example_dict in random.sample(examples, 5)]
-)
-
-TIME_CONSIERATION = """Ensure to include the time estimation for building audience. State the assumptions if made. 
-                        Provide detailed reasoning for estimation in bulletpoints."""
+LIST_OF_QUESTIONS = [Q1, Q2, Q3, Q4, Q5]
 
 PROMPT_1 = (
-    "Your Entrepreneurial DNA: A Snapshot",
+    "Your Entrepreneurial Profile: Key Insights",
     """
-        Title: Your Entrepreneurial DNA: A Snapshot
+    Analyze the user's input and provide a concise summary that captures the essence of their background, interests, and entrepreneurial potential. Focus on presenting key information and highlighting their strengths.
 
-Analyze the user's input and provide a concise, insightful summary that captures the essence of their entrepreneurial potential. Think of this as decoding their unique "entrepreneurial DNA".
+    Guidelines:
+    - STRICTLY create EXACTLY 5 bullet points
+    - Each bullet point should be a single, easy-to-read sentence
+    - Cover a mix of professional background, personal interests, skills, and entrepreneurial aspirations
+    - Highlight strengths and unique attributes that could contribute to entrepreneurial success
 
-Guidelines:
-- Synthesize information about their experience, skills, and aspirations
-- Create EXACTLY 5 bullet points, each containing a single, easy-to-read sentence
-- Ensure each bullet point provides a distinct insight about the user's entrepreneurial potential
+    Content of the 5 bullet points should aim to cover:
+    1. A summary of their professional background or key experience
+    2. Notable skills or expertise they possess
+    3. Personal interests or passions that could influence their entrepreneurial journey
+    4. Any specific business ideas or areas of interest they've mentioned
+    5. A key strength or unique attribute that sets them apart
 
-Content of the 5 bullet points should cover:
-1. One standout trait or skill that forms the core of their entrepreneurial DNA
-2. A potential business direction that naturally aligns with their DNA
-3. An area where their entrepreneurial DNA could be strengthened or expanded
-4. A unique combination of skills or experiences that sets them apart
-5. A key motivation or aspiration driving their entrepreneurial journey
+    Format:
+    - Begin with: "Here's a snapshot of your entrepreneurial profile:"
+    - Use "You" to address the user, avoiding any names
+    - STRICTLY keep the total word count under 100 words, including the opening phrase
 
-Format:
-- Begin with: "Your entrepreneurial DNA reveals:"
-- Use "You" to address the user, avoiding any names
-- STRICTLY keep the total word count under 100 words, including the opening phrase
-
-Aim to provide a snapshot that offers the user a fresh, insightful perspective on their innate entrepreneurial qualities and potential. The summary should feel personal, revelatory, and inspiring.
+    Aim to provide an objective summary that reflects the user's input while highlighting their strengths and potential. The summary should feel comprehensive yet concise, giving a clear picture of the user's starting point for their entrepreneurial journey.
     """,
 )
 
 PROMPT_2 = (
-    "Business Recommendations",
-    f"""
-        Based on the user's profile summary and input, generate 3 tailored one-person business recommendations. 
-        These should be proven ideas that have been successfully monetized by other solopreneurs. 
+    "Business Directions That Suit You",
+    """
+    Based on the user's profile summary, input, and any inspiring businesses, people, or products they've mentioned, suggest 3 general one-person business directions that align with their background and interests. These should be starting points for further exploration, not fully developed business plans. 
+    Ensure all suggestions are feasible for one person to start and operate initially without hiring a team.
 
-        Important: If the user has provided a business idea, your recommendations MUST directly complement or enhance that specific idea. Do not deviate from the user's original concept.
+    For each suggestion:
+    1. If the user provided a business idea:
+    - Propose a related field or niche within the same industry that's manageable for one person
+    - Or suggest a way to apply their idea on a smaller, solo-operated scale
+    2. If the user mentioned inspiring businesses, people, or products:
+    - Incorporate elements or principles from these inspirations, adapting them to a solo business model
+    3. If no specific idea or inspiration was provided:
+    - Suggest a general business direction based on their skills and interests that can be operated solo
 
-        For each recommendation:
-        1. If the user provided a business idea:
-        - Focus exclusively on services, products, or extensions that directly enhance their specific idea
-        - Suggest ways to diversify or expand their initial concept within the same industry or target market
-        2. If no specific idea was provided:
-        - Create new suggestions based on the user's profile
+    Each suggestion should:
+    - Broadly align with the user's professional experience and personal interests
+    - Be feasible for one person to start and operate initially
+    - Be within their stated time and budget constraints
+    - Have potential for growth and scalability, but start small
+    - Leverage the user's unique skills or experiences
+    - Address a general market trend or need
+    - If applicable, reflect aspects of businesses or products that inspire the user, adapted to a solo model
 
-        Each recommendation should:
-        - Align closely with the user's professional experience and personal interests
-        - Consider stated time commitment and budget constraints
-        - Start small but show clear potential for scalability
-        - Leverage the user's unique skills or experiences
-        - Address a proven market need or trend
+    Format for each suggestion:
 
-        Format for each recommendation:
+    ### [number]. Business idea
 
-        ### [Number]. [Brief title of proven business idea]
+    **Concept:** [2-3 sentences describing this general solo business direction, how it relates to the user's background, and if applicable, how it draws inspiration from businesses or products they admire]
 
-        **Concept:** [2-3 sentences describing how the user could implement this idea, directly related to their original concept if provided]
+    **Why It's Feasible Solo:** [1-2 sentences explaining how this can be started and operated by one person]
 
-        **Why It Fits You:** [1-2 sentences highlighting alignment with user's profile]
+    **Future Potential:** [1-2 sentences on how this direction could grow over time while starting as a one-person operation]
 
-        **Scalability:** [1-2 sentences on growth potential]
+    Guidelines:
+    - Use the formatting provided above, including headers and bold text
+    - Keep each suggestion to 80-100 words total
+    - Ensure diversity in the types of solo business directions suggested
+    - Use "You" to address the user, avoiding any names
+    - Focus on broad directions that are specifically feasible for one-person operations
+    - Use bullet points or italics to enhance readability where appropriate
 
-        **Synergy:** [If applicable, 1-2 sentences on how it directly complements the user's original idea]
-
-        Guidelines:
-        - Use the formatting provided above, including headers and bold text
-        - Keep each recommendation to 100-120 words total
-        - Ensure diversity in the types of businesses suggested, but all must relate to the user's idea if one was provided
-        - Use "You" to address the user, avoiding any names
-        - Consider insights from the previous summary in your recommendations
-        - Balance proven success with the user's unique background
-        - Use bullet points, italics, or other formatting elements to enhance readability where appropriate
-
-        Aim to inspire the user with realistic, proven business ideas that directly enhance or complement their original concept (if provided). Ensure each recommendation is closely tied to the user's specific idea or background.
+    Aim to inspire the user with realistic, adaptable solo business directions that align with their background, interests, and inspirations (if provided). These should serve as starting points for further research and refinement, all feasible for a solopreneur to begin without initial hiring.
     """,
 )
 PROMPT_3 = (
-    "Required Business Skills and Knowledge",
+    "Resources to Kickstart Your Entrepreneurial Journey",
     """
-        Based on the three business ideas recommended and the user's profile, create a concise table of essential skills and knowledge areas. Include legal and financial knowledge necessary for running a business. Focus on identifying skill gaps that the user needs to address to make their business successful.
+    Based on the user's profile, suggested business directions, and any specific interests or needs they've mentioned, provide a concise guide to resources that can help them start their entrepreneurial journey.
 
-        Format your response as a table with the following columns:
-        | Skill/Knowledge | Importance | Your Level | Resource to Learn | Estimated Cost |
+    Generate 5 resource categories, each with a brief explanation and, if possible, a general link or platform where they can find more information.
 
-        Guidelines:
-        - Include exactly 6 rows in the table
-        - Ensure legal and financial knowledge are included
-        - For other skills, mix those the user already has and those they need to develop
-        - For "Importance", use: Critical, High, or Moderate
-        - For "Your Level", use: Expert, Proficient, Beginner, or None
-        - In the "Resource to Learn" column, provide a specific online course, platform, or book
-        - In the "Estimated Cost" column, provide an approximate cost (use "Free" for no-cost resources)
-        - Prioritize skills that are most critical for the user's success
-        - Include a mix of business, technical, legal, and financial skills as relevant
-        - Ensure a range of resources, including both free and paid options
+    For each resource category:
 
-        Example row:
-        | Digital Marketing | Critical | Beginner | Google Digital Garage: "Fundamentals of Digital Marketing" | Free |
+    ### [number]. Resource category
 
-        Below the table, provide a brief (2-3 sentences) summary of the user's strongest skills and the most critical areas for improvement.
+    **Why it's valuable:** [1-2 sentences explaining how this resource type can help them in their entrepreneurial journey]
 
-        Remember to tailor the skills and resources to the specific business ideas recommended and the user's background. Always address the user as "You" and avoid using any names.
+    **Where to find it:** [General platforms, websites, or methods to access this type of resource. Include a specific link only if it's a well-known, stable resource]
 
-        Keep the entire response, including the table and summary, under 150 words.
+    **Pro tip:** [A brief, practical piece of advice related to using this type of resource effectively]
+
+    Guidelines:
+    - Ensure the resources cover a range of needs (e.g., business planning, skill development, networking, funding information, legal/administrative guidance)
+    - Focus on resources suitable for solo entrepreneurs or small startups
+    - Prioritize free or low-cost resources where possible
+    - Include a mix of online and offline resources if relevant
+    - Tailor the resource suggestions to the user's specific business directions and background
+    - Keep each resource category description to 50-70 words
+
+    Aim to provide a starting point for the user's research and learning, guiding them towards valuable information sources without overwhelming them with too much detail.
+
+    Conclude with a brief (2-3 sentences) encouragement for the user to explore these resources and continue learning about entrepreneurship.
     """,
-)
-PROMPT_4 = (
-    "Services and Tools needed",
-    """
-        Based on the recommended business ideas and the user's profile, create a concise table of essential services and tools needed for basic business operations. Focus on the bare minimum requirements to get started.
-
-        Format your response as a table with the following columns:
-        | Service/Tool | Purpose | Estimated Monthly Cost (USD) | Alternative (if applicable) |
-
-        Guidelines:
-        - Include exactly 5 rows in the table
-        - Focus on essential services/tools only (e.g., website hosting, accounting software, email marketing tool)
-        - For "Purpose", provide a brief (5-7 words) explanation of why it's needed
-        - In "Estimated Monthly Cost", provide a realistic cost range or specific amount in USD
-        - In "Alternative", suggest a free or lower-cost option if available
-        - Ensure the selected services/tools are directly relevant to the recommended business ideas
-        - Prioritize cost-effective solutions suitable for a startup phase
-
-        Example row:
-        | Website Hosting | Host business website and online store | $10-$20 | Github Pages (Free for basic sites) |
-
-        Below the table, provide a brief summary of the total estimated monthly cost for these essential services/tools and any potential cost-saving strategies.
-
-        Remember to tailor the services and tools to the specific business ideas recommended and the user's background. Always address the user as "You" and avoid using any names.
-
-        Keep the entire response, including the table and summary, under 150 words.
-    """,
-)
-
-PROMPT_5 = (
-    "Your Entrepreneurial Roadmap: At a Glance",
-    """
-
-Based on all previous analyses and recommendations, provide a concise summary of the user's entrepreneurial journey. Focus exclusively on the following elements:
-
-1. Top Business Idea: Highlight the most promising business idea recommended.
-
-2. Cost Breakdown:
-   - Initial investment required
-   - Estimated monthly operating costs
-   - Potential revenue projections (3-6 months, 1 year)
-
-3. Timeline:
-   - Key milestones for the first year
-   - Estimated time to profitability
-
-4. Expected Challenges:
-   - List 2-3 main challenges based on the user's profile and the chosen business idea
-
-Format:
-- Use clear, concise bullet points for each section
-- Begin with: "Here's your entrepreneurial roadmap at a glance:"
-- Use "You" to address the user, avoiding any names
-- STRICTLY keep the total word count under 200 words
-
-Ensure that all information is tailored to the user's specific profile, skills, and circumstances. The summary should provide a clear, actionable overview that helps the user visualize their entrepreneurial journey.
-    """
 )
 
 
@@ -218,7 +133,4 @@ MULTI_SYS_PROMPT = [
     PROMPT_1,
     PROMPT_2,
     PROMPT_3,
-    PROMPT_4,
-    # PROMPT_5 
-    # TODO: NEEDS BETTER FORMATTING
 ]

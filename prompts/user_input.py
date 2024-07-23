@@ -1,48 +1,5 @@
-PERSONAL_RELATED_1 = """
-I have an idea for a personalized meal planning and grocery delivery service for busy professionals. 
-The service would create weekly meal plans based on dietary preferences and restrictions, then deliver pre-portioned ingredients and recipes to customers' homes.
-"""
-
-PERSONAL_RELATED_2 = """
-I have a background in software engineering, with 5 years of experience at a major tech company.
-My roles have included full-stack development and leading small teams on various projects.
-I've worked primarily with JavaScript, Python, and cloud technologies like AWS.
-In addition to technical skills, I've developed strong problem-solving and project management abilities.
-Recently, I've been focusing on machine learning and AI, completing several online courses in these areas.
-"""
-
-PERSONAL_RELATED_3 = """
-Outside of work, I'm an avid hiker and nature photographer. I enjoy capturing landscapes and wildlife.
-I also volunteer at a local coding bootcamp, mentoring aspiring developers on weekends.
-I'm passionate about sustainable living and have been experimenting with urban gardening.
-"""
-
-PERSONAL_RELATED_4 = """
-I'm looking to combine my technical skills with my passion for the outdoors and sustainability.
-I'm open to relocating for the right opportunity and am comfortable with remote work.
-Long-term, I hope to create a business that has a positive environmental impact.
-"""
-
-BUSINESS_RELATED_1 = """
-30 hours per week
-"""
-
-BUSINESS_RELATED_2 = """
-18 months
-"""
-
-BUSINESS_RELATED_3 = """
-25,000 USD
-"""
-
-BUSINESS_RELATED_4 = """
-I created a hiking app as a side project that gained about 5,000 users. It wasn't monetized, but I learned a lot about user engagement and app development.
-"""
-
-BUSINESS_RELATED_5 = """
-Achieve financial independence, create something meaningful, and have the flexibility to work on projects I'm passionate about.
-"""
-
-BUSINESS_RELATED_6 = """
-I'm aiming for an annual income of 120,000 USD within the first 3 years.
-"""
+A1 = "My journey spans over 12 years in IT, from serving as a Communications Officer in the Air Force to developing software for various industries. I've worked on ERP systems, cyber intelligence platforms, and even an online coaching platform. I think my experience in bridging communication gaps and developing user-centric software could lead to entrepreneurial opportunities in creating tools that enhance cross-cultural collaboration in global businesses."
+A2 = "I'm passionate about blogging on communication topics, which has taught me a lot about content creation and SEO. I also have a background in design from my bachelor's degree. These interests, combined with my international experience, could shape a path towards creating digital products that improve intercultural communication and collaboration."
+A3 = "Entrepreneurship appeals to me because it offers the chance to create innovative solutions that can have a wide-reaching impact. In the future, I'd like to develop tools or platforms that break down communication barriers in global business settings, potentially leveraging AI to enhance cross-cultural understanding and collaboration."
+A4 = "I admire companies like Duolingo and Grammarly that have made language learning and communication more accessible. Their products resonate with me because they effectively combine technology with linguistics to solve real-world problems. I'm also inspired by Marshall Goldsmith's approach to coaching and how he's scaled his impact through digital platforms."
+A5 = "The biggest hurdle is probably finding the right balance between innovation and market demand. If I had a magic wand, I'd love to have a clear vision of which specific communication challenges in the business world are most urgently in need of technological solutions. This would help me focus my efforts on developing a product that's both innovative and immediately valuable to potential customers."
