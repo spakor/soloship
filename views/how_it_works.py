@@ -11,7 +11,7 @@ def load_lottie_url(url: str):
 st.title("How SoloShip Works")
 
 # Step 1: Understand Your Profile
-image, content = st.columns([2, 4])
+content, image = st.columns([4, 2])
 
 with image:
     lottie_url = "https://lottie.host/33d5ba14-558e-4747-a6be-072a69930477/fBRqbghm00.json"
@@ -22,10 +22,9 @@ with content:
     st.subheader("1. We Get to Know You")
     st.write(
         """
-        - Answer 10 simple questions about your skills, experiences, and goals
-        - Upload your resume for even more personalized results (optional)
-        - Share your risk tolerance and time availability
-        - Don't worry if you don't have a clear business idea yet – we're here to help!
+        - Answer 5 questions about your skills, experiences, and goals
+        - Upload your resume for more personalized results (optional)
+        - No clear business idea yet? Don't worry – we're here to help
         """
     )
 
@@ -38,38 +37,16 @@ with image:
     st_lottie(lottie_json, key="lottie_animation_2")
 
 with content:
-    st.subheader("2. Our AI Goes to Work")
+    st.subheader("2. Our AI Analyzes Your Profile")
     st.write(
         """
-        - Advanced algorithms analyze your profile
-        - We match your unique attributes with viable business ideas
-        - Our AI considers market trends, profitability, and scalability
-        - We focus on solo businesses that align with your goals and constraints
+        - Advanced AI processes your information
+        - We match your attributes with potential business ideas
+        - Focus on solo businesses aligned with your goals and constraints
         """
     )
 
-# Step 3: Comprehensive Data
-image, content = st.columns([2, 4])
-
-with image:
-    lottie_url = "https://lottie.host/9e47a8b9-642c-4145-8300-65e0099528b9/97aSVxrmUF.json"
-    lottie_json = load_lottie_url(lottie_url)
-    st_lottie(lottie_json, key="lottie_animation_3")
-
-with content:
-    st.subheader("3. Access to Rich, Up-to-Date Data")
-    st.write(
-        """
-        - Our database is continuously updated with:
-          • Latest business ideas and emerging markets
-          • Current economic trends and industry insights
-          • Real-world case studies of successful solopreneurs
-        - We ensure you receive relevant and timely recommendations
-        - All data is tailored to match your specific profile and aspirations
-        """
-    )
-
-# Step 4: Instant, Actionable Results
+# Step 3: Personalized Results
 content, image = st.columns([4, 2])
 
 with image:
@@ -78,22 +55,22 @@ with image:
     st_lottie(lottie_json, key="lottie_animation_4")
 
 with content:
-    st.subheader("4. Your Personalized Business Roadmap")
+    st.subheader("3. Your Personalized Business Insights")
     st.write(
         """
-        In seconds, you'll receive:
-        - Top 3 tailored business ideas suited to your profile
-        - Detailed breakdown of required skills and resources
-        - Estimated startup costs
-        - Curated list of learning resources to fill skill gaps
-        - Step-by-step guide to launch each business idea
+        In just moments, you'll receive:
+        - Key insights about your entrepreneurial potential
+        - 3 tailored business directions to explore
+        - Curated resources to support your entrepreneurial journey
 
-        Start exploring your entrepreneurial opportunities right away!
+        Start exploring your business opportunities right away
         """
     )
 
 # Call to Action
 st.write("---")
-st.header("Ready to Start Your Entrepreneurial Journey?")
-if st.button("🚀 Find Your Perfect Business Idea Now", type="primary"):
-    st.switch_page("views/home.py")
+st.header("Ready to Explore Your Business Potential?")
+_, col, _ = st.columns(3)
+with col:
+    if st.button("Find Your Business Direction", type="primary"):
+        st.switch_page("views/home.py")

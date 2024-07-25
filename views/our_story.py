@@ -13,7 +13,7 @@ def load_lottie_url(url: str):
 st.title("Our Story: From Frustration to Innovation")
 
 # The Entrepreneurial Maze
-image, content = st.columns([2, 4])
+content, image = st.columns([4, 2])
 
 with image:
     lottie_url = (
@@ -53,7 +53,7 @@ with content:
     )
 
 # The 'What If' Moment
-image, content = st.columns([2, 4])
+content, image = st.columns([4, 2])
 
 with image:
     lottie_url = (
@@ -94,7 +94,7 @@ with content:
     )
 
 # SoloShip: Your Entrepreneurial Compass
-image, content = st.columns([2, 4])
+content, image = st.columns([4, 2])
 
 with image:
     lottie_url = (
@@ -121,6 +121,7 @@ Are you ready to chart your own course in the business world? With SoloShip, you
 Let's set sail on your entrepreneurial journey together!
 """
 )
-
-if st.button("Start Your Business Adventure Now", type="primary"):
-    st.switch_page("views/home.py")
+_, col, _ = st.columns(3)
+with col:
+    if st.button("Start Your Business Adventure Now", type="primary"):
+        st.switch_page("views/home.py")
