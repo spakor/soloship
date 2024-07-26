@@ -21,7 +21,7 @@ with col1:
 
 
 st.subheader(
-    "Your :violet[brilliant] idea deserves a business. Let's get started!",
+    "Ready, Set, :violet[Solopreneur]: Your Adventure Begins Now!",
     anchor=False,
 )
 

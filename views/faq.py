@@ -9,7 +9,7 @@ with st.expander("What is SoloShip and how does it work?"):
     st.write('''
         SoloShip is an AI-powered platform designed to help aspiring entrepreneurs explore solo business opportunities. 
         We use advanced AI to match your skills, experiences, and goals with potential business directions. 
-        Simply answer our 5-question survey, and we'll provide you with personalized business insights and directions to explore.
+        Simply answer our 5-question survey, and we'll provide you with personalized business insights, directions to explore, and LinkedIn content strategies.
     ''')
 
 with st.expander("Is SoloShip really free? Are there any hidden costs?"):
@@ -40,8 +40,8 @@ with st.expander("What if I don't have a resume to upload?"):
 
 with st.expander("How long does it take to get results after answering the questions?"):
     st.write('''
-        You'll receive your results in just moments! Our AI processes your answers and generates tailored insights and business directions quickly, 
-        allowing you to start exploring opportunities right away.
+        You'll receive your results in just moments! Our AI processes your answers and generates tailored insights, business directions, 
+        and LinkedIn content strategies quickly, allowing you to start exploring opportunities right away.
     ''')
 
 ### Data and Privacy
@@ -50,7 +50,7 @@ st.subheader("Data And Privacy", divider="violet")
 with st.expander("How does SoloShip protect my personal information?"):
     st.write('''
         Your privacy is our priority. We don't collect or store any personally identifiable information. 
-        All data is used solely to generate business recommendations and is not stored after your session.
+        All data is used solely to generate business recommendations and content strategies, and is not stored after your session.
     ''')
 
 ### AI and tech
@@ -59,7 +59,7 @@ st.subheader("AI And Technology", divider="violet")
 with st.expander("What AI technology does SoloShip use?"):
     st.write('''
         SoloShip uses Upstage AI, a powerful and advanced artificial intelligence platform, to analyze your information 
-        and generate personalized business insights and directions.
+        and generate personalized business insights, directions, and LinkedIn content strategies.
     ''')
 
 with st.expander("Can I use SoloShip if I'm not tech-savvy?"):
@@ -68,13 +68,13 @@ with st.expander("Can I use SoloShip if I'm not tech-savvy?"):
         make it easy for users of all technical backgrounds to benefit from our service.
     ''')
 
-### Business ideas and resources
-st.subheader("Business Ideas And Resources", divider="violet")
+### Business ideas and content strategies
+st.subheader("Business Ideas And Content Strategies", divider="violet")
 
 with st.expander("Can I use SoloShip if I already have a business idea in mind?"):
     st.write('''
-        Certainly! If you have an idea, we can provide valuable insights and resources to support it. 
-        Our system can offer complementary ideas or highlight aspects of your existing concept you might not have considered.
+        Certainly! If you have an idea, we can provide valuable insights to support it. Our system can offer complementary ideas, 
+        highlight aspects of your existing concept you might not have considered, and provide tailored LinkedIn content strategies to promote your business.
     ''')
 
 with st.expander("What if I don't like any of the three business directions provided?"):
@@ -83,16 +83,16 @@ with st.expander("What if I don't like any of the three business directions prov
         Remember, the more information you share, the better we can tailor our suggestions to your preferences.
     ''')
 
-with st.expander("What kind of resources does SoloShip provide?"):
+with st.expander("What kind of content strategies does SoloShip provide?"):
     st.write('''
-        SoloShip provides curated resources to support your entrepreneurial journey. These may include learning materials 
-        and guidance on where to find more information about your potential business directions.
+        SoloShip provides tailored LinkedIn content strategies to kickstart your entrepreneurial journey. These include content pillars, 
+        post ideas, and engagement tips specific to your business direction, helping you build your online presence and authority in your field.
     ''')
 
 ### Scope and limitations
 st.subheader("Scope And Limitations", divider="violet")
-with st.expander("Does SoloShip offer ongoing support after providing initial ideas?"):
+with st.expander("Does SoloShip offer ongoing support after providing initial ideas and content strategies?"):
     st.write('''
-        Currently, we focus on providing initial guidance and business directions. Our service is designed to be a starting point 
-        for your entrepreneurial journey, offering insights and potential paths to explore.
+        Currently, we focus on providing initial guidance, business directions, and LinkedIn content strategies. Our service is designed to be a starting point 
+        for your entrepreneurial journey, offering insights and potential paths to explore, as well as ways to begin building your online presence.
     ''')

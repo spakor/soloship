@@ -8,7 +8,7 @@ def load_lottie_url(url: str):
         return None
     return response.json()
 
-st.title("How SoloShip Works")
+st.title("Embark on Your SoloShip Journey")
 
 # Step 1: Understand Your Profile
 content, image = st.columns([4, 2])
@@ -19,12 +19,12 @@ with image:
     st_lottie(lottie_json, key="lottie_animation_1")
 
 with content:
-    st.subheader("1. We Get to Know You")
+    st.subheader("1. We Decode Your Entrepreneurial DNA")
     st.write(
         """
-        - Answer 5 questions about your skills, experiences, and goals
-        - Upload your resume for more personalized results (optional)
-        - No clear business idea yet? Don't worry – we're here to help
+        - Share your journey through 5 insightful questions
+        - Enhance results with your resume (optional but recommended)
+        - No solid business idea? No problem – we'll spark your inspiration
         """
     )
 
@@ -37,12 +37,12 @@ with image:
     st_lottie(lottie_json, key="lottie_animation_2")
 
 with content:
-    st.subheader("2. Our AI Analyzes Your Profile")
+    st.subheader("2. AI-Powered Business Matchmaking")
     st.write(
         """
-        - Advanced AI processes your information
-        - We match your attributes with potential business ideas
-        - Focus on solo businesses aligned with your goals and constraints
+        - Our AI analyzes your unique profile
+        - We align your strengths with promising solo business directions
+        - Discover opportunities tailored to your goals and lifestyle
         """
     )
 
@@ -55,22 +55,22 @@ with image:
     st_lottie(lottie_json, key="lottie_animation_4")
 
 with content:
-    st.subheader("3. Your Personalized Business Insights")
+    st.subheader("3. Your Roadmap to Solopreneur Success")
     st.write(
         """
-        In just moments, you'll receive:
-        - Key insights about your entrepreneurial potential
-        - 3 tailored business directions to explore
-        - Curated resources to support your entrepreneurial journey
+        In moments, you'll unlock:
+        - Insights into your entrepreneurial superpowers
+        - 3 tailored solo business directions to explore
+        - LinkedIn content strategies to build your authority
 
-        Start exploring your business opportunities right away
+        Launch your solo business adventure with confidence!
         """
     )
 
 # Call to Action
 st.write("---")
-st.header("Ready to Explore Your Business Potential?")
+st.header("Ready to Chart Your Course to Success?")
 _, col, _ = st.columns(3)
 with col:
-    if st.button("Find Your Business Direction", type="primary"):
+    if st.button("Discover Your Perfect Business Direction", type="primary"):
         st.switch_page("views/home.py")

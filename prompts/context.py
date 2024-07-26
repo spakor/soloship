@@ -43,24 +43,25 @@ COMBINED_PROMPT = (
 
     Begin with the following introduction:
 
-    "Ready to make waves in your industry? As a solopreneur, LinkedIn is your secret weapon. 
-    It's where you'll showcase expertise, build your network, and turn business dreams into reality. 
-    Let's dive into strategies to help you stand out and thrive in your unique journey."
+    "Ready to transform your skills into a thriving solo business? Discover tailored business directions and leverage LinkedIn to showcase your expertise. Let's turn your unique talents into a standout venture."
 
     For each business direction, use the following format:
 
     #### [number]. [Business Direction Name]
 
     **Concept:**
+
     - [One sentence describing the business direction]
     - [One sentence on how it relates to the user's background]
     - [If applicable, one sentence on inspiration from user's mentioned businesses/products]
 
     **Solo Feasibility:**
+
     - [One sentence explaining how this can be started and operated by one person]
     - [One sentence on required skills or resources]
 
     **Growth Potential:**
+
     - [One sentence on initial target market]
     - [One sentence on future expansion possibilities]
 
@@ -72,11 +73,11 @@ COMBINED_PROMPT = (
        - Pillar 3: [A third topic area directly related to this specific business direction]
 
     2. First Five LinkedIn Post Ideas:
-       - [Brief post idea related to Pillar 1, tailored for LinkedIn and this specific business]
-       - [Brief post idea related to Pillar 2, tailored for LinkedIn and this specific business]
-       - [Brief post idea related to Pillar 3, tailored for LinkedIn and this specific business]
-       - [Brief post idea showcasing expertise specific to this business direction]
-       - [Brief post idea engaging with LinkedIn audience in the context of this business]
+       - "How to [solve a specific problem related to Pillar 1]"
+       - "5 Steps to [achieve a goal related to Pillar 2]"
+       - "The Ultimate Guide to [a key concept from Pillar 3]"
+       - "[Number] Strategies for [overcoming a common challenge in this business area]"
+       - "Case Study: How I [achieved a specific result relevant to this business]"
 
     3. LinkedIn Engagement Strategy:
        - [Concise tip on how to engage with LinkedIn connections relevant to this business direction]
@@ -91,92 +92,13 @@ COMBINED_PROMPT = (
     - Ensure all content and strategies are directly relevant to each specific business direction
     - Tailor all LinkedIn suggestions to be appropriate for a professional platform
     - Focus on content that establishes authority in the specific field of each business direction
-    - Keep post ideas brief but specific to the business direction and LinkedIn's audience
+    - Frame post ideas as "How to" guides or in-depth explorations of topics to build authority
     - Provide engagement tips that leverage LinkedIn's features and are relevant to the business area
     - Consider how to position the solopreneur as a thought leader in their specific field
     - Balance personal branding with business promotion, keeping the specific business direction in mind
 
     Aim to inspire the user with realistic, adaptable solo business directions and practical LinkedIn strategies that serve as starting points for further exploration and implementation.
-    """
-)
-
-PROMPT_2 = (
-    "Business Directions That Suit You",
-    """
-    Based on the user's profile, suggest 3 one-person business directions aligned with their background and interests. 
-    Ensure all suggestions are feasible for a solopreneur to start and operate without hiring.
-
-    For each business direction, use the following format:
-
-    #### [number]. [Business Direction Name]
-
-    **Concept:**
-    - [One sentence describing the business direction]
-    - [One sentence on how it relates to the user's background]
-    - [If applicable, one sentence on inspiration from user's mentioned businesses/products]
-
-    **Solo Feasibility:**
-    - [One sentence explaining how this can be started and operated by one person]
-    - [One sentence on required skills or resources]
-
-    **Growth Potential:**
-    - [One sentence on initial target market]
-    - [One sentence on future expansion possibilities]
-
-    Guidelines:
-    - Align each direction with the user's experience, interests, and constraints
-    - Ensure diversity in the types of businesses suggested
-    - Address current market trends or needs
-    - Use "You" to address the user
-    - Keep each business direction to 60-80 words total
-
-    Aim to inspire the user with realistic, adaptable solo business directions that serve as starting points for further exploration.
-    """
-)
-
-PROMPT_3 = (
-    "LinkedIn Content Strategy for Solopreneurs",
-    """
-    Begin with the following introduction, then provide a LinkedIn content strategy for each of the three previously recommended business directions. Do not introduce any new business directions.
-
-    "Ready to make waves in your industry? As a solopreneur, LinkedIn is your secret weapon. \n 
-    It's where you'll showcase expertise, build your network, and turn business dreams into reality. \n
-    Let's dive into strategies to help you stand out and thrive in your unique journey."
-
-    STRICTLY using ONLY the three business direction names recommended in the previous response, create a LinkedIn content strategy for each. 
-    Do not invent or introduce any new business ideas.
-
-    For each of the three recommended business directions, present the following:
-
-    #### [Exact Name of Recommended Business Direction]
-
-    1. Content Pillars:
-       - Pillar 1: [Topic area directly related to this specific business direction]
-       - Pillar 2: [Another topic area directly related to this specific business direction]
-       - Pillar 3: [A third topic area directly related to this specific business direction]
-
-    2. First Five LinkedIn Post Ideas:
-       - [Brief post idea related to Pillar 1, tailored for LinkedIn and this specific business]
-       - [Brief post idea related to Pillar 2, tailored for LinkedIn and this specific business]
-       - [Brief post idea related to Pillar 3, tailored for LinkedIn and this specific business]
-       - [Brief post idea showcasing expertise specific to this business direction]
-       - [Brief post idea engaging with LinkedIn audience in the context of this business]
-
-    3. LinkedIn Engagement Strategy:
-       - [Concise tip on how to engage with LinkedIn connections relevant to this business direction]
-       - [Another practical engagement tip specific to LinkedIn and this business area]
-
-    Guidelines:
-    - Start the response with the provided introduction
-    - Use ONLY the three business directions previously recommended. Do not create new ones.
-    - Ensure all content and strategies are directly relevant to each specific business direction
-    - Tailor all suggestions to be appropriate for LinkedIn's professional platform
-    - Focus on content that establishes authority in the specific field of each business direction
-    - Keep post ideas brief but specific to the business direction and LinkedIn's audience
-    - Provide engagement tips that leverage LinkedIn's features and are relevant to the business area
-    - Consider how to position the solopreneur as a thought leader in their specific field
-    - Balance personal branding with business promotion, keeping the specific business direction in mind
-    """
+    """,
 )
 
 SYSTEM_CONTEXT = """
@@ -197,9 +119,4 @@ Key points to remember:
 Your goal is to empower users with valuable insights for starting their solo business while ensuring interactions remain safe, ethical, and constructive.
 """
 
-MULTI_SYS_PROMPT = [
-    PROMPT_1,
-    # PROMPT_2,
-    # PROMPT_3,
-    COMBINED_PROMPT
-]
+MULTI_SYS_PROMPT = [PROMPT_1, COMBINED_PROMPT]
