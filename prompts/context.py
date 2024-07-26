@@ -19,11 +19,11 @@ PROMPT_1 = (
     - Highlight strengths and unique attributes that could contribute to entrepreneurial success
 
     Content of the 5 bullet points should aim to cover:
-    1. A summary of their professional background or key experience
-    2. Notable skills or expertise they possess
-    3. Personal interests or passions that could influence their entrepreneurial journey
-    4. Any specific business ideas or areas of interest they've mentioned
-    5. A key strength or unique attribute that sets them apart
+    - A summary of their professional background or key experience
+    - Notable skills or expertise they possess
+    - Personal interests or passions that could influence their entrepreneurial journey
+    - Any specific business ideas or areas of interest they've mentioned
+    - A key strength or unique attribute that sets them apart
 
     Format:
     - Begin with: "Here's a snapshot of your entrepreneurial profile:"
@@ -34,82 +34,150 @@ PROMPT_1 = (
     """,
 )
 
+COMBINED_PROMPT = (
+    "Business Directions and LinkedIn Strategies for Solopreneurs",
+    """
+    Based on the user's profile, suggest 3 one-person business directions aligned with their background and interests. 
+    Ensure all suggestions are feasible for a solopreneur to start and operate without hiring. 
+    For each business direction, also provide a LinkedIn content strategy.
+
+    Begin with the following introduction:
+
+    "Ready to make waves in your industry? As a solopreneur, LinkedIn is your secret weapon. 
+    It's where you'll showcase expertise, build your network, and turn business dreams into reality. 
+    Let's dive into strategies to help you stand out and thrive in your unique journey."
+
+    For each business direction, use the following format:
+
+    #### [number]. [Business Direction Name]
+
+    **Concept:**
+    - [One sentence describing the business direction]
+    - [One sentence on how it relates to the user's background]
+    - [If applicable, one sentence on inspiration from user's mentioned businesses/products]
+
+    **Solo Feasibility:**
+    - [One sentence explaining how this can be started and operated by one person]
+    - [One sentence on required skills or resources]
+
+    **Growth Potential:**
+    - [One sentence on initial target market]
+    - [One sentence on future expansion possibilities]
+
+    **LinkedIn Content Strategy:**
+
+    1. Content Pillars:
+       - Pillar 1: [Topic area directly related to this specific business direction]
+       - Pillar 2: [Another topic area directly related to this specific business direction]
+       - Pillar 3: [A third topic area directly related to this specific business direction]
+
+    2. First Five LinkedIn Post Ideas:
+       - [Brief post idea related to Pillar 1, tailored for LinkedIn and this specific business]
+       - [Brief post idea related to Pillar 2, tailored for LinkedIn and this specific business]
+       - [Brief post idea related to Pillar 3, tailored for LinkedIn and this specific business]
+       - [Brief post idea showcasing expertise specific to this business direction]
+       - [Brief post idea engaging with LinkedIn audience in the context of this business]
+
+    3. LinkedIn Engagement Strategy:
+       - [Concise tip on how to engage with LinkedIn connections relevant to this business direction]
+       - [Another practical engagement tip specific to LinkedIn and this business area]
+
+    Guidelines:
+    - Align each direction with the user's experience, interests, and constraints
+    - Ensure diversity in the types of businesses suggested
+    - Address current market trends or needs
+    - Use "You" to address the user
+    - Keep the business direction description (Concept, Solo Feasibility, Growth Potential) to 60-80 words total
+    - Ensure all content and strategies are directly relevant to each specific business direction
+    - Tailor all LinkedIn suggestions to be appropriate for a professional platform
+    - Focus on content that establishes authority in the specific field of each business direction
+    - Keep post ideas brief but specific to the business direction and LinkedIn's audience
+    - Provide engagement tips that leverage LinkedIn's features and are relevant to the business area
+    - Consider how to position the solopreneur as a thought leader in their specific field
+    - Balance personal branding with business promotion, keeping the specific business direction in mind
+
+    Aim to inspire the user with realistic, adaptable solo business directions and practical LinkedIn strategies that serve as starting points for further exploration and implementation.
+    """
+)
+
 PROMPT_2 = (
     "Business Directions That Suit You",
     """
-    Based on the user's profile summary, input, and any inspiring businesses, people, or products they've mentioned, suggest 3 general one-person business directions that align with their background and interests. These should be starting points for further exploration, not fully developed business plans. 
-    Ensure all suggestions are feasible for one person to start and operate initially without hiring a team.
+    Based on the user's profile, suggest 3 one-person business directions aligned with their background and interests. 
+    Ensure all suggestions are feasible for a solopreneur to start and operate without hiring.
 
-    For each suggestion:
-    1. If the user provided a business idea:
-    - Propose a related field or niche within the same industry that's manageable for one person
-    - Or suggest a way to apply their idea on a smaller, solo-operated scale
-    2. If the user mentioned inspiring businesses, people, or products:
-    - Incorporate elements or principles from these inspirations, adapting them to a solo business model
-    3. If no specific idea or inspiration was provided:
-    - Suggest a general business direction based on their skills and interests that can be operated solo
+    For each business direction, use the following format:
 
-    Each suggestion should:
-    - Broadly align with the user's professional experience and personal interests
-    - Be feasible for one person to start and operate initially
-    - Be within their stated time and budget constraints
-    - Have potential for growth and scalability, but start small
-    - Leverage the user's unique skills or experiences
-    - Address a general market trend or need
-    - If applicable, reflect aspects of businesses or products that inspire the user, adapted to a solo model
+    #### [number]. [Business Direction Name]
 
-    Format for each suggestion:
+    **Concept:**
+    - [One sentence describing the business direction]
+    - [One sentence on how it relates to the user's background]
+    - [If applicable, one sentence on inspiration from user's mentioned businesses/products]
 
-    ### [number]. Business idea
+    **Solo Feasibility:**
+    - [One sentence explaining how this can be started and operated by one person]
+    - [One sentence on required skills or resources]
 
-    **Concept:** [2-3 sentences describing this general solo business direction, how it relates to the user's background, and if applicable, how it draws inspiration from businesses or products they admire]
-
-    **Why It's Feasible Solo:** [1-2 sentences explaining how this can be started and operated by one person]
-
-    **Future Potential:** [1-2 sentences on how this direction could grow over time while starting as a one-person operation]
+    **Growth Potential:**
+    - [One sentence on initial target market]
+    - [One sentence on future expansion possibilities]
 
     Guidelines:
-    - Use the formatting provided above, including headers and bold text
-    - Keep each suggestion to 80-100 words total
-    - Ensure diversity in the types of solo business directions suggested
-    - Use "You" to address the user, avoiding any names
-    - Focus on broad directions that are specifically feasible for one-person operations
-    - Use bullet points or italics to enhance readability where appropriate
+    - Align each direction with the user's experience, interests, and constraints
+    - Ensure diversity in the types of businesses suggested
+    - Address current market trends or needs
+    - Use "You" to address the user
+    - Keep each business direction to 60-80 words total
 
-    Aim to inspire the user with realistic, adaptable solo business directions that align with their background, interests, and inspirations (if provided). These should serve as starting points for further research and refinement, all feasible for a solopreneur to begin without initial hiring.
-    """,
-)
-PROMPT_3 = (
-    "Resources to Kickstart Your Entrepreneurial Journey",
+    Aim to inspire the user with realistic, adaptable solo business directions that serve as starting points for further exploration.
     """
-    Based on the user's profile, suggested business directions, and any specific interests or needs they've mentioned, provide a concise guide to resources that can help them start their entrepreneurial journey.
-
-    Generate 5 resource categories, each with a brief explanation and, if possible, a general link or platform where they can find more information.
-
-    For each resource category:
-
-    ### [number]. Resource category
-
-    **Why it's valuable:** [1-2 sentences explaining how this resource type can help them in their entrepreneurial journey]
-
-    **Where to find it:** [General platforms, websites, or methods to access this type of resource. Include a specific link only if it's a well-known, stable resource]
-
-    **Pro tip:** [A brief, practical piece of advice related to using this type of resource effectively]
-
-    Guidelines:
-    - Ensure the resources cover a range of needs (e.g., business planning, skill development, networking, funding information, legal/administrative guidance)
-    - Focus on resources suitable for solo entrepreneurs or small startups
-    - Prioritize free or low-cost resources where possible
-    - Include a mix of online and offline resources if relevant
-    - Tailor the resource suggestions to the user's specific business directions and background
-    - Keep each resource category description to 50-70 words
-
-    Aim to provide a starting point for the user's research and learning, guiding them towards valuable information sources without overwhelming them with too much detail.
-
-    Conclude with a brief (2-3 sentences) encouragement for the user to explore these resources and continue learning about entrepreneurship.
-    """,
 )
 
+PROMPT_3 = (
+    "LinkedIn Content Strategy for Solopreneurs",
+    """
+    Begin with the following introduction, then provide a LinkedIn content strategy for each of the three previously recommended business directions. Do not introduce any new business directions.
+
+    "Ready to make waves in your industry? As a solopreneur, LinkedIn is your secret weapon. \n 
+    It's where you'll showcase expertise, build your network, and turn business dreams into reality. \n
+    Let's dive into strategies to help you stand out and thrive in your unique journey."
+
+    STRICTLY using ONLY the three business direction names recommended in the previous response, create a LinkedIn content strategy for each. 
+    Do not invent or introduce any new business ideas.
+
+    For each of the three recommended business directions, present the following:
+
+    #### [Exact Name of Recommended Business Direction]
+
+    1. Content Pillars:
+       - Pillar 1: [Topic area directly related to this specific business direction]
+       - Pillar 2: [Another topic area directly related to this specific business direction]
+       - Pillar 3: [A third topic area directly related to this specific business direction]
+
+    2. First Five LinkedIn Post Ideas:
+       - [Brief post idea related to Pillar 1, tailored for LinkedIn and this specific business]
+       - [Brief post idea related to Pillar 2, tailored for LinkedIn and this specific business]
+       - [Brief post idea related to Pillar 3, tailored for LinkedIn and this specific business]
+       - [Brief post idea showcasing expertise specific to this business direction]
+       - [Brief post idea engaging with LinkedIn audience in the context of this business]
+
+    3. LinkedIn Engagement Strategy:
+       - [Concise tip on how to engage with LinkedIn connections relevant to this business direction]
+       - [Another practical engagement tip specific to LinkedIn and this business area]
+
+    Guidelines:
+    - Start the response with the provided introduction
+    - Use ONLY the three business directions previously recommended. Do not create new ones.
+    - Ensure all content and strategies are directly relevant to each specific business direction
+    - Tailor all suggestions to be appropriate for LinkedIn's professional platform
+    - Focus on content that establishes authority in the specific field of each business direction
+    - Keep post ideas brief but specific to the business direction and LinkedIn's audience
+    - Provide engagement tips that leverage LinkedIn's features and are relevant to the business area
+    - Consider how to position the solopreneur as a thought leader in their specific field
+    - Balance personal branding with business promotion, keeping the specific business direction in mind
+    """
+)
 
 SYSTEM_CONTEXT = """
 You are an experienced, AI-powered business consultant designed to assist aspiring solopreneurs in starting and developing one-person businesses. 
@@ -131,6 +199,7 @@ Your goal is to empower users with valuable insights for starting their solo bus
 
 MULTI_SYS_PROMPT = [
     PROMPT_1,
-    PROMPT_2,
-    PROMPT_3,
+    # PROMPT_2,
+    # PROMPT_3,
+    COMBINED_PROMPT
 ]
