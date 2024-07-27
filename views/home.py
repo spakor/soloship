@@ -185,33 +185,6 @@ def show_start_over_button():
             st.rerun()
 
 
-@st.experimental_fragment
-def show_response_rating_slider():
-    st.markdown(
-        """
-            <style>
-                   .slider {
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-            </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown('<div class="slider">', unsafe_allow_html=True)
-    rating = st.slider(
-        "How would you rate this response?", 1, 5, 3, key="rating_slider"
-    )
-    st.markdown("</div>", unsafe_allow_html=True)
-    # st.write("Rate this response:")
-    # rating = st.slider("How would you rate this response?", 1, 5, 3)
-
-    if st.button("Submit Rating", type="primary"):
-        st.write(f"Thanks for your rating: {rating} stars!")
-
-
 def dump_user_input():
     user_input = {
         LIST_OF_QUESTIONS[i]: st.session_state.responses[i]
@@ -242,9 +215,9 @@ def extract_document_ocr(uploaded_file):
 
 
 def show_document_upload():
-    with st.expander("Document Upload (Optional)"):
+    with st.expander("Document Upload", expanded=True):
         uploaded_file = st.file_uploader(
-            "You can upload a document such as a CV or a business proposal (optional)",
+            "You can upload a document such as a CV or a business proposal.",
             help="This can help the AI have more information on your experience.",
             type=["JPEG", "PNG", "BMP", "PDF", "TIFF", "HEIC"],
             accept_multiple_files=False,
@@ -306,7 +279,6 @@ elif (
 ):
     dump_user_input()
     send_to_llm()
-    show_response_rating_slider()
     display_random_quote()
     footer_lottie()
 else:
