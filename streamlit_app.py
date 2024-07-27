@@ -1,5 +1,3 @@
-import json
-import os
 import streamlit as st
 import re
 from sheets.google_client import emails_worksheet
