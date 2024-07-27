@@ -1,3 +1,4 @@
+import pyperclip
 import contextlib
 import json
 import random
@@ -113,6 +114,7 @@ def show_existing_response():
                 st.divider()
 
     col1, _, _, col4 = st.columns([1, 1, 1, 1])
+
     with col4:
         show_start_over_button()
 
@@ -144,13 +146,23 @@ def send_to_llm():
     with lottie_animation():
         handle_questionnaire(responses_dict)
 
+    full_response = ""
     for prompt_type, response_text in st.session_state.response_dict.items():
         st.subheader(f":violet[{prompt_type}]")
         st.write(response_text)
+        full_response += prompt_type + response_text
 
     col1, _, _, col4 = st.columns([1, 1, 1, 1])
+    with col1:
+        show_copy_text_button(full_response)
     with col4:
         show_start_over_button()
+
+
+@st.experimental_fragment
+def show_copy_text_button(response: str):
+    if st.button("Copy", key="copy", type="primary"):
+        pyperclip.copy(response)
 
 
 @st.experimental_fragment

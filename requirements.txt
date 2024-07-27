@@ -5,3 +5,4 @@ streamlit-lottie==0.0.5
 gspread 
 oauth2client
 python-dotenv
+pyperclip
