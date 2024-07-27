@@ -1,14 +1,6 @@
-import json
-import os
 import streamlit as st
 import re
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from dotenv import load_dotenv
-
-# Load environment variables from .envrc file or .env file
-load_dotenv()
-
+from sheets.google_client import emails_worksheet
 
 # -- Page setup --
 st.set_page_config(page_icon="assets/2.png")
@@ -49,17 +41,7 @@ st.markdown(
 
 def submit_feedback(email, feedback_type, feedback):
     try:
-        scope = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds_json = os.getenv("GOOGLE_API_KEY")
-        sheets_id = os.getenv("GOOGLE_SHEET_ID")
-        creds_dict = json.loads(creds_json)
-        creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
-        client = gspread.authorize(creds)
-
-        # Find a workbook by name and open the first sheet
-        # Make sure you use the right name here.
-        sheet = client.open_by_key(sheets_id).sheet1
-        sheet.append_row([email, feedback_type, feedback])
+        emails_worksheet.append_row([email, feedback_type, feedback])
         return True
     except Exception as e:
         st.sidebar.error(f"An error occurred: {str(e)}")
