@@ -39,9 +39,9 @@ st.markdown(
 )
 
 
-def submit_feedback(email, feedback_type, feedback):
+def submit_feedback(email, feedback_type, feedback, llm_rating):
     try:
-        emails_worksheet.append_row([email, feedback_type, feedback])
+        emails_worksheet.append_row([email, feedback_type, feedback, llm_rating])
         return True
     except Exception as e:
         st.sidebar.error(f"An error occurred: {str(e)}")
@@ -71,6 +71,9 @@ with st.sidebar.expander("💌 We'd Love to Hear from You!", expanded=True):
                 "Success Story",
             ],
         )
+
+        llm_rating = st.slider("How would you rate our response?", 1, 5, 3)
+
         feedback = st.text_area(
             "Your Message",
             placeholder="Share your experience, ideas, or concerns...",
@@ -82,7 +85,7 @@ with st.sidebar.expander("💌 We'd Love to Hear from You!", expanded=True):
 
         if submit_button:
             if email and is_valid_email(email) and feedback and agree:
-                if submit_feedback(email, feedback_type, feedback):
+                if submit_feedback(email, feedback_type, feedback, llm_rating):
                     st.success(
                         "Thank you for your valuable feedback! We appreciate your input."
                     )
