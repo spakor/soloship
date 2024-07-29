@@ -3,7 +3,7 @@ import re
 from sheets.google_client import emails_worksheet
 
 # -- Page setup --
-st.set_page_config(page_icon="assets/2.png")
+st.set_page_config(page_icon="assets/2.png", page_title="Soloship")
 
 
 home_page = st.Page(
