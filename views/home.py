@@ -29,6 +29,7 @@ st.subheader(
     "Ready, Set, :violet[Solopreneur]: Your Adventure Begins Now!",
     anchor=False,
 )
+st.write("5 Questions → Your Personalized Business Direction & LinkedIn Strategy.")
 
 # Initialize session state variables
 session_vars = {
