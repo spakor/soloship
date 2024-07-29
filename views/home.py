@@ -156,8 +156,9 @@ def send_to_llm():
         full_response += prompt_type + response_text
 
     col1, _, _, col4 = st.columns([1, 1, 1, 1])
-    with col1:
-        show_copy_text_button(full_response)
+    # temp disabled
+    # with col1:
+    #     show_copy_text_button(full_response)
     with col4:
         show_start_over_button()
 
