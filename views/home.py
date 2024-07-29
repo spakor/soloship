@@ -1,13 +1,15 @@
-import pyperclip
 import contextlib
+import html
 import json
 import random
 import re
 import requests
 import streamlit as st
 import uuid
+import subprocess
 from datetime import datetime
 
+import streamlit.components.v1 as components
 from streamlit_lottie import st_lottie
 from collections import OrderedDict
 
@@ -161,8 +163,10 @@ def send_to_llm():
 
 @st.experimental_fragment
 def show_copy_text_button(response: str):
-    if st.button("Copy", key="copy", type="primary"):
-        pyperclip.copy(response)
+    unique_id = f"copy-button-{hash(response)}"
+
+    if st.button("Copy", key=unique_id, type="primary"):
+        subprocess.run("pbcopy", text=True, input=response)
 
 
 @st.experimental_fragment
